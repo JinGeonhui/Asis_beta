@@ -1,1 +1,1 @@
-npm run lint  # 커밋 전에 ESLint 실행
+npx next lint --fix && npm run format
