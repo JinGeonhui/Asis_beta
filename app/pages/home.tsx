@@ -1,1 +1,12 @@
-//초기 설정 commit을 위해 생성
+import React from "react";
+import SideBar from "../components/sidebar";
+
+function Home() {
+  return (
+    <>
+      <SideBar />
+    </>
+  );
+}
+
+export default Home;
