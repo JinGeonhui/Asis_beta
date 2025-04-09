@@ -1,4 +1,4 @@
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState } from "react";
 import Logo from "../components/Logo";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -64,6 +64,10 @@ function Signup() {
     }
   };
 
+  const GoSignin = () => {
+    router.push("/Signin");
+  };
+
   return (
     <div className="w-[1707px] h-[905px] bg-white flex flex-col items-center">
       <div className="absolute top-8 left-12">
@@ -71,7 +75,10 @@ function Signup() {
       </div>
 
       <div className="absolute top-12 left-[1550px]">
-        <button className="bg-[#1570EF] w-[67px] h-[27px] rounded-[5px] text-white font-[pretendard] text-[14px]">
+        <button
+          className="bg-[#1570EF] w-[67px] h-[27px] rounded-[5px] text-white font-[pretendard] text-[14px]"
+          onClick={GoSignin}
+        >
           로그인
         </button>
       </div>
