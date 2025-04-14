@@ -24,9 +24,12 @@ export default function OAuthCallbackPage() {
 
     const fetchToken = async () => {
       try {
-        const res = await axios.post("https://endlessly-cuddly-salmon.ngrok-free.app/auth/token", {
-          code,
-        });
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/auth/token`,
+          {
+            code,
+          },
+        );
 
         localStorage.setItem("access_token", res.data.accessToken);
         router.push("/");
