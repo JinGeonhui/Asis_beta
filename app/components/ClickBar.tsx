@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 
@@ -40,7 +40,7 @@ export function ClickBar({
               fontFamily: "Pretendard",
               fontSize: "0.99413rem",
               fontWeight: 700,
-              margin: 0
+              margin: 0,
             }}
           >
             {progress}

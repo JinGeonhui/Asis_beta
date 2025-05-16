@@ -51,13 +51,9 @@ export function InsertModal({ onClose, text }: Modalprops) {
         onClose();
         location.reload();
       }
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("TodoList 추가 중 오류:", error);
-    } 
-    
-    finally {
+    } finally {
       setLoading(false);
     }
   };

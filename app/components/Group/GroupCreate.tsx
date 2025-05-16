@@ -13,23 +13,23 @@ import { ChoosedBox } from "../../components/ChoosedBox";
 import { TdlBox } from "../../components/TdlBox";
 
 export function GroupCreate() {
-    const [userId, setUserId] = useState("");
-    const [friendData, setFriendData] = useState<
-        { friend: string; email: string; userCode: string }[]
-    >([]);
-    const [isConnected, setIsConnected] = useState(false);
-    const [selectedFriends, setSelectedFriends] = useState<
-        { friend: string; email: string; userCode: string }[]
-    >([]);
-    const [inputValue, setInputValue] = useState(""); // 입력값 상태
-    const [tdls, setTdls] = useState<string[]>([]); // 추가된 TDL 목록 상태
-    const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
-    
+  const [userId, setUserId] = useState("");
+  const [friendData, setFriendData] = useState<
+    { friend: string; email: string; userCode: string }[]
+  >([]);
+  const [isConnected, setIsConnected] = useState(false);
+  const [selectedFriends, setSelectedFriends] = useState<
+    { friend: string; email: string; userCode: string }[]
+  >([]);
+  const [inputValue, setInputValue] = useState(""); // 입력값 상태
+  const [tdls, setTdls] = useState<string[]>([]); // 추가된 TDL 목록 상태
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
+
   const router = useRouter();
 
   const email = "s23054@gsm.hs.kr";

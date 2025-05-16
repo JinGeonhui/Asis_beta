@@ -22,11 +22,11 @@ export function EditMoadl({ onClose, tdl }: Modalprops) {
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
   const router = useRouter();
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {

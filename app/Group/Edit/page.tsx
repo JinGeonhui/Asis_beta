@@ -2,9 +2,7 @@ import React from "react";
 import { GroupEdit } from "@/app/components/Group/GroupEdit";
 
 const GroupEditPage = () => {
-    return(
-        <GroupEdit />
-    )
-}
+  return <GroupEdit />;
+};
 
-export default GroupEditPage
+export default GroupEditPage;

@@ -32,23 +32,30 @@ export function ChoosedBox({
       >
         {text}
       </div>
-      {iconSrc && (
-        iconAsButton ? (
+      {iconSrc &&
+        (iconAsButton ? (
           <button
             type="button"
             onClick={onIconClick}
             className={`absolute top-1/2 ${iconPositionStyle} -translate-y-1/2`}
           >
-            <img src={"/BlueX.svg"} alt={iconAlt} className={`w-[${iconSize}px] h-[${iconSize}px]`} />
+            <img
+              src={"/BlueX.svg"}
+              alt={iconAlt}
+              className={`w-[${iconSize}px] h-[${iconSize}px]`}
+            />
           </button>
         ) : (
           <div
             className={`absolute top-1/2 ${iconPositionStyle} -translate-y-1/2 pointer-events-none`}
           >
-            <img src={"/BlueX.svg"} alt={iconAlt} className={`w-[${iconSize}px] h-[${iconSize}px]`} />
+            <img
+              src={"/BlueX.svg"}
+              alt={iconAlt}
+              className={`w-[${iconSize}px] h-[${iconSize}px]`}
+            />
           </div>
-        )
-      )}
+        ))}
     </div>
   );
 }

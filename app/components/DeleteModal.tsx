@@ -20,11 +20,11 @@ interface Modalprops {
 export function DeleteMoadl({ onClose, tdl }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
   const router = useRouter();
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {

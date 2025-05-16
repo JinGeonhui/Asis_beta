@@ -45,12 +45,14 @@ function SideBar() {
     }
   };
 
-
   // 단체 대시보드 클릭 핸들러
   const handleGroupDashboardClick = async () => {
     handleMenuClick("users");
     try {
-      const token = typeof window !== "undefined" ? window.localStorage.getItem("accessToken") : null;
+      const token =
+        typeof window !== "undefined"
+          ? window.localStorage.getItem("accessToken")
+          : null;
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/isMember`,
         {
@@ -58,7 +60,7 @@ function SideBar() {
             Authorization: `Bearer ${token}`,
             "ngrok-skip-browser-warning": "69420",
           },
-        }
+        },
       );
       if (response.data === true) {
         router.push("/Group/Main");
@@ -78,7 +80,10 @@ function SideBar() {
 
   return (
     <div className="w-[285px] h-[905px] bg-white flex justify-start flex-col items-center gap-5 py-4">
-      <div className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-1" onClick={() => router.push("/")}>
+      <div
+        className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-1"
+        onClick={() => router.push("/")}
+      >
         <img src="/LogoIcon.svg" className="w-[45px] h-[45px]" />
         <img src="/LogoTextIcon.svg" className="w-[61px] h-[61px]" />
       </div>

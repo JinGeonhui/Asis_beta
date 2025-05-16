@@ -20,11 +20,11 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState("");
   const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -58,9 +58,7 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
 
       onClose(); // 성공 시 모달 닫기
       location.reload();
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("수정 실패", error);
     }
   };
@@ -145,9 +143,7 @@ export function PersonalDeleteMoadl({ onClose, text }: ModalProps) {
         onClose();
         location.reload();
       }
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("삭제 중 오류:", error);
     }
   };

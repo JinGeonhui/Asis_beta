@@ -48,15 +48,10 @@ function Signin() {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
 
-        setTimeout(
-          () => onSilentRefresh(accessToken),
-          JWT_EXPIRY_TIME - 60000,
-        );
+        setTimeout(() => onSilentRefresh(accessToken), JWT_EXPIRY_TIME - 60000);
         router.push("/");
       }
-    } 
-    
-    catch {
+    } catch {
       alert("로그인 도중에 문제가 생겼습니다.");
     }
   };
@@ -70,7 +65,7 @@ function Signin() {
         {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
           },
           withCredentials: true,
         },
@@ -82,10 +77,7 @@ function Signin() {
         localStorage.setItem("access_token", accessToken);
         localStorage.setItem("refresh_token", refreshToken);
 
-        setTimeout(
-          () => onSilentRefresh(accessToken),
-          JWT_EXPIRY_TIME - 60000,
-        );
+        setTimeout(() => onSilentRefresh(accessToken), JWT_EXPIRY_TIME - 60000);
       }
     } catch (error: any) {
       console.error("refresh 토큰 에러", error);

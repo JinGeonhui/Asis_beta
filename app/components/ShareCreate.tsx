@@ -11,7 +11,9 @@ export function ShareCreate() {
       <div className="w-full h-screen flex flex-col items-center">
         <div className="w-full flex-1 overflow-y-scroll overflow-x-hidden scrollbar-hide pb-[300px] flex flex-col items-center">
           <div className="w-[703px] relative top-[150px] font-[pretendard] flex flex-col items-start">
-            <p className="font-bold text-[30px]">공유 TDL에 함께할 친구를 초대해주세요</p>
+            <p className="font-bold text-[30px]">
+              공유 TDL에 함께할 친구를 초대해주세요
+            </p>
 
             <div className="w-full flex flex-col gap-[22px] relative top-[31px]">
               <div className="flex flex-col gap-[14px] w-full">
@@ -56,7 +58,6 @@ export function ShareCreate() {
             <p className="font-bold text-[30px]">공유 TDL 설정을 해주세요</p>
             <div className="w-full flex flex-col gap-[13px]">
               <p className="font-medium">설정하고 싶은 내용을 클릭해주세요</p>
- 
             </div>
           </div>
 

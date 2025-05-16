@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
@@ -13,11 +13,11 @@ export function DateMoadl({ onClose, text }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState("");
   const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
   const router = useRouter();
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
