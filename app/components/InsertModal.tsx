@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +11,12 @@ interface Modalprops {
 
 export function InsertModal({ onClose, text }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const token = localStorage.getItem("accessToken");
+    const [token, setToken] = useState<string | null>(null);
+  
+    useEffect(() => {
+      const accessToken = localStorage.getItem("accessToken");
+      setToken(accessToken);
+    }, []);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 

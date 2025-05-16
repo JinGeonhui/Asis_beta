@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 interface Modalprops {
@@ -10,7 +10,12 @@ interface Modalprops {
 
 export function PersonalDeleteMoadl({ onClose, text }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const token = window.localStorage.getItem("accessToken");
+    const [token, setToken] = useState<string | null>(null);
+  
+    useEffect(() => {
+      const accessToken = localStorage.getItem("accessToken");
+      setToken(accessToken);
+    }, []);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

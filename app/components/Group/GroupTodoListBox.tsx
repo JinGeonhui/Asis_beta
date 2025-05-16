@@ -73,6 +73,12 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const [optimisticMap, setOptimisticMap] = useState<
     Record<number, OptimisticState>
   >({});
+    const [token, setToken] = useState<string | null>(null);
+  
+    useEffect(() => {
+      const accessToken = localStorage.getItem("accessToken");
+      setToken(accessToken);
+    }, []);
   const router = useRouter();
 
   // AI EXPO용 테스터 이름 고정
@@ -81,10 +87,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   // 할 일 리스트 가져오는 API
   const fetchTodolist = async () => {
     try {
-      const token =
-        typeof window !== "undefined"
-          ? window.localStorage.getItem("accessToken")
-          : null;
       if (isToday(selectedDate)) {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`,
@@ -186,10 +188,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
     // 2) 서버에는 기존대로 PUT 요청
     try {
-      const token =
-        typeof window !== "undefined"
-          ? window.localStorage.getItem("accessToken")
-          : null;
       await axios.put(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/success`,
         {
@@ -246,10 +244,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     }
 
     try {
-      const token =
-        typeof window !== "undefined"
-          ? window.localStorage.getItem("accessToken")
-          : null;
       await axios.post(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`,
         {
