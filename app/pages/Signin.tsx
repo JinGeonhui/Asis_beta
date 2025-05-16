@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Logo from "../components/Logo";
+import Logo from "@/app/components/Logo";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -43,15 +43,12 @@ function Signin() {
       );
 
       if (response.status === 200) {
-        const { access_token, refresh_token } = response.data;
+        const { accessToken, refreshToken } = response.data;
 
-        localStorage.setItem("access_token", access_token);
-        localStorage.setItem("refresh_token", refresh_token);
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
 
-        setTimeout(
-          () => onSilentRefresh(access_token),
-          JWT_EXPIRY_TIME - 60000,
-        );
+        setTimeout(() => onSilentRefresh(accessToken), JWT_EXPIRY_TIME - 60000);
         router.push("/");
       }
     } catch {
@@ -60,29 +57,27 @@ function Signin() {
   };
 
   // 토큰 갱신
-  const onSilentRefresh = async (access_token: string) => {
+  const onSilentRefresh = async (accessToken: string) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/auth/refresh`,
-        { access_token: access_token },
+        { accessToken: accessToken },
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
           },
           withCredentials: true,
         },
       );
 
       if (response.status === 200) {
-        const { access_token, refresh_token } = response.data;
+        const { accessToken, refreshToken } = response.data;
 
-        localStorage.setItem("access_token", access_token);
-        localStorage.setItem("refresh_token", refresh_token);
+        localStorage.setItem("access_token", accessToken);
+        localStorage.setItem("refresh_token", refreshToken);
 
-        setTimeout(
-          () => onSilentRefresh(access_token),
-          JWT_EXPIRY_TIME - 60000,
-        );
+        setTimeout(() => onSilentRefresh(accessToken), JWT_EXPIRY_TIME - 60000);
       }
     } catch (error: any) {
       console.error("refresh 토큰 에러", error);

@@ -2,35 +2,33 @@
 
 import React, { useState } from "react";
 import SideBar from "../components/SideBar";
-import DashbordHeader from "../components/DashbordHeader";
+import GroupTodoListBox from "@/app/components/Group/GroupTodoListBox";
 import CalendarDemo from "../components/CalednarDemo";
-import PersonalTodoListBox from "../components/PersonalTodoListBox";
+import GroupTeamUserList from "@/app/components/Group/GroupTeamUserList";
 
-function Home() {
+function Main() {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [userCount, setUserCount] = useState(0); // 현재 인원 상태 추가
 
   return (
     <div className="flex flex-row">
       <SideBar />
       <div id="RangeSection" className="w-full flex flex-col">
-        <div id="Header" className="pl-10 mt-[2rem]">
-          <DashbordHeader />
-        </div>
-
         <div className="mt-[1.5rem] w-full pl-10 flex flex-row">
-          <PersonalTodoListBox
+          <GroupTodoListBox
             selectedDate={selectedDate}
             onSelectDate={setSelectedDate}
+            userCount={userCount}
           />
-
           <div
             id="MiddleContainer"
-            className="flex flex-col w-[24rem] gap-[2rem] pl-10"
+            className="flex flex-col w-[24rem] gap-[2rem] pl-12"
           >
             <CalendarDemo
               selectedDate={selectedDate}
               onSelectDate={setSelectedDate}
             />
+            <GroupTeamUserList onUserCountChange={setUserCount} />
           </div>
         </div>
       </div>
@@ -38,4 +36,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Main;
