@@ -105,7 +105,6 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
     fetchTodolist();
   }, [selectedDate]);
 
-
   useEffect(() => {
     setIsReadOnly(!isToday(selectedDate));
   }, [selectedDate]);
