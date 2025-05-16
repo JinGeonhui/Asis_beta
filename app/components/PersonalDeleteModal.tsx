@@ -1,8 +1,7 @@
-// 'use client'
+'use client'
 
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 interface Modalprops {
   onClose: () => void;
@@ -11,7 +10,6 @@ interface Modalprops {
 
 export function PersonalDeleteMoadl({ onClose, text }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const token = window.localStorage.getItem("accessToken");
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
