@@ -15,7 +15,11 @@ interface GroupTeamUserListProps {
 
 function GroupTeamUserList({ onUserCountChange }: GroupTeamUserListProps) {
   const [userList, setUserList] = useState<UserInfo[]>([]);
-  const token = localStorage.getItem("accessToken");
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    setToken(localStorage.getItem("accessToken"));
+  }, []);
 
   useEffect(() => {
     async function fetchUserList() {
