@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Logo from "@/app/components/Logo";
+import Logo from "../components/Logo";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -23,13 +23,11 @@ function Signin() {
   }
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
     const dto = {
       email: email,
       password: password,
     };
-
+  
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/auth/login`,
@@ -39,58 +37,38 @@ function Signin() {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        },
+        }
       );
-
+  
       if (response.status === 200) {
-        const { accessToken, refreshToken } = response.data;
-
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-
-        setTimeout(
-          () => onSilentRefresh(accessToken),
-          JWT_EXPIRY_TIME - 60000,
-        );
         router.push("/");
       }
-    } 
-    
-    catch {
+    } catch {
       alert("로그인 도중에 문제가 생겼습니다.");
     }
-  };
+  };  
 
   // 토큰 갱신
-  const onSilentRefresh = async (accessToken: string) => {
+  const onSilentRefresh = async () => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/auth/refresh`,
-        { accessToken: accessToken },
+        {},
         {
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`
           },
           withCredentials: true,
-        },
+        }
       );
-
+  
       if (response.status === 200) {
-        const { accessToken, refreshToken } = response.data;
-
-        localStorage.setItem("access_token", accessToken);
-        localStorage.setItem("refresh_token", refreshToken);
-
-        setTimeout(
-          () => onSilentRefresh(accessToken),
-          JWT_EXPIRY_TIME - 60000,
-        );
+        setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
       }
     } catch (error: any) {
       console.error("refresh 토큰 에러", error);
     }
-  };
+  };  
 
   const handleSocialGoogle = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/oauth2/authorize/google`;
@@ -165,7 +143,7 @@ function Signin() {
 
           <div>
             <button
-              className="bg-[#1570EF] w-[80px] h-[40px] top-[330px] absolute right-4 font-[pretendard] text-white rounded-lg"
+              className="bg-[#1570EF] w-[80px] h-[40px] absolute right-4 font-[pretendard] text-white rounded-lg"
               onClick={handleSubmit}
             >
               확인
