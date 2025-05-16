@@ -11,12 +11,12 @@ interface Modalprops {
 
 export function InsertModal({ onClose, text }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
-    const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 

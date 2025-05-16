@@ -7,12 +7,12 @@ import axios from "axios";
 function SideBar() {
   const router = useRouter();
   const pathname = usePathname();
-    const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
   const menus = [
     {
       id: "user",
@@ -55,7 +55,6 @@ function SideBar() {
   const handleGroupDashboardClick = async () => {
     handleMenuClick("users");
     try {
-
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/isMember`,
         {

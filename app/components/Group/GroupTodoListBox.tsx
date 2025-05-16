@@ -73,12 +73,12 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const [optimisticMap, setOptimisticMap] = useState<
     Record<number, OptimisticState>
   >({});
-    const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
   const router = useRouter();
 
   // AI EXPO용 테스터 이름 고정

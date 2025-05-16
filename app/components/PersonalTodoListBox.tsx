@@ -58,12 +58,12 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
   const [selectedTdl, setSelectedTdl] = useState<string | null>(null);
   const [isReadOnly, setIsReadOnly] = useState(false);
 
-    const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const accessToken = localStorage.getItem("accessToken");
-      setToken(accessToken);
-    }, []);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
 
   // TDL 불러오기
   useEffect(() => {
