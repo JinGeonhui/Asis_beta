@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import SideBar from "../components/SideBar";
+import SideBar from "../components/sidebar";
 import DashbordHeader from "../components/DashbordHeader";
 import CalendarDemo from "../components/CalednarDemo";
 import PersonalTodoListBox from "../components/PersonalTodoListBox";
