@@ -15,7 +15,7 @@
 //   const token = window.localStorage.getItem("accessToken");
 //   const router = useRouter();
 
-//   const email = "s1@gsm.hs.kr";
+//   const email = "s23054@gsm.hs.kr";
 
 //   function ModalClick() {
 //     setModalOpen(true);

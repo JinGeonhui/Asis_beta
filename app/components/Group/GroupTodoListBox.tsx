@@ -86,70 +86,82 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
   // 할 일 리스트 가져오는 API
   const fetchTodolist = async () => {
+  if (!token) return;
+
+  // 오늘이면 항상 group/toDoList/get에서 받아오기
+  if (isToday(selectedDate)) {
     try {
-      if (isToday(selectedDate)) {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "ngrok-skip-browser-warning": "69420",
-            },
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "69420",
           },
-        );
+        }
+      );
 
-        const ownerCode = response.data.ownerCode;
-        setOwnerName(response.data.ownerName); // 방장 이름 저장
-        const sups = response.data.getSups || [];
-        const mapped = sups.map((item: any) => ({
-          title: item.title,
-          category: item.category,
-          completed: item.completed ?? false,
-          tdlID: item.tdlID,
-          groupNumber: item.groupNumber,
-          ownerCode: ownerCode,
-          part: item.part,
-        }));
-        setTodolist(mapped);
-
-        if (sups.length > 0) setGroupNumber(sups[0].groupNumber);
-      } else {
-        const formattedDate = formatDate(selectedDate);
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/group`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "ngrok-skip-browser-warning": "69420",
-            },
-            params: { date: formattedDate },
-          },
-        );
-
-        setOwnerName("");
-        const tdlArr = (response.data.tdl || []).map((item: any) => ({
-          title: item.title,
-          category: item.category,
-          completed: item.completed ?? false,
-          tdlID: item.tdlID,
-          groupNumber: item.groupNumber,
-          ownerCode: item.ownerCode,
-          part: item.part,
-        }));
-        setTodolist(tdlArr);
-        if (tdlArr.length > 0) setGroupNumber(tdlArr[0].groupNumber);
-      }
+      const ownerCode = response.data.ownerCode;
+      setOwnerName(response.data.ownerName);
+      const sups = response.data.getSups || [];
+      const mapped = sups.map((item: any) => ({
+        title: item.title,
+        category: item.category,
+        completed: item.completed ?? false,
+        tdlID: item.tdlID,
+        groupNumber: item.groupNumber,
+        ownerCode: ownerCode,
+        part: item.part,
+      }));
+      setTodolist(mapped);
+      if (sups.length > 0) setGroupNumber(sups[0].groupNumber);
     } catch (error) {
-      console.error("에러 발생(fetchTodolist):", error);
+      console.error("에러 발생(fetchTodolist-오늘):", error);
       setTodolist([]);
       setOwnerName("");
     }
-  };
+    return;
+  }
+
+  // 오늘이 아니라면 calendar/group에서 받아오기
+  try {
+    const formattedDate = formatDate(selectedDate);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/group`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "69420",
+        },
+        params: { date: formattedDate },
+      }
+    );
+
+    setOwnerName("");
+    const tdlArr = (response.data.tdl || []).map((item: any) => ({
+      title: item.title,
+      category: item.category,
+      completed: item.completed ?? false,
+      tdlID: item.tdlID,
+      groupNumber: item.groupNumber,
+      ownerCode: item.ownerCode,
+      part: item.part,
+    }));
+    setTodolist(tdlArr);
+    if (tdlArr.length > 0) setGroupNumber(tdlArr[0].groupNumber);
+  } catch (error) {
+    console.error("에러 발생(fetchTodolist-캘린더):", error);
+    setTodolist([]);
+    setOwnerName("");
+  }
+};
+
 
   // 날짜 데이터가 입력될 시 TDL 가져오는 API 다시 불러오기
   useEffect(() => {
-    fetchTodolist();
-  }, [selectedDate]);
+  fetchTodolist();
+}, [selectedDate, token]);
+
 
   // 서버 push(WebSocket 등)로 todolist가 오면 setTodolist로 동기화 + 낙관적 상태 초기화
   useEffect(() => {

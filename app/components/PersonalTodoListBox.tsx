@@ -61,13 +61,16 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    setToken(accessToken);
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
   }, []);
 
   // TDL 불러오기
   useEffect(() => {
     const fetchTodolist = async () => {
+      const token = localStorage.getItem("accessToken");
+      if (!token) return;
+
       try {
         if (isToday(selectedDate)) {
           const response = await axios.get(
@@ -101,6 +104,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
     };
     fetchTodolist();
   }, [selectedDate]);
+
 
   useEffect(() => {
     setIsReadOnly(!isToday(selectedDate));
