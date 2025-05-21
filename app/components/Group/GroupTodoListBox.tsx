@@ -74,12 +74,17 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     Record<number, OptimisticState>
   >({});
   const [token, setToken] = useState<string | null>(null);
+  const [isReadOnly, setIsReadOnly] = useState(false);
 
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
     setToken(access_token);
   }, []);
   const router = useRouter();
+
+  useEffect(() => {
+    setIsReadOnly(!isToday(selectedDate));
+  }, [selectedDate]);
 
   // AI EXPO용 테스터 이름 고정
   const myName = "진건희";
@@ -148,8 +153,11 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         part: item.part,
       }));
       setTodolist(tdlArr);
+      
       if (tdlArr.length > 0) setGroupNumber(tdlArr[0].groupNumber);
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("에러 발생(fetchTodolist-캘린더):", error);
       setTodolist([]);
       setOwnerName("");
@@ -173,6 +181,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
   // 클릭 핸들러: UI에만 낙관적 상태 반영, 서버에는 PUT 요청
   const handleToggleTdl = async (item: TodoList) => {
+    if (isReadOnly) return;
     setSelectedTdl(item);
 
     // 1) 낙관적 상태로만 UI 즉시 반영
