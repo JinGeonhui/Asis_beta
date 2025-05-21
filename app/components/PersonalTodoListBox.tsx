@@ -5,8 +5,8 @@ import { ClickBar } from "./ClickBar";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { InsertModal } from "./InsertModal";
-import { PersonalDeleteMoadl } from "./PersonalEditModal";
-import { PersonalEditMoadl } from "./PersonalEditModal";
+import { PersonalDeleteMoadl } from "./PersonalModals";
+import { PersonalEditMoadl } from "./PersonalModals";
 
 interface TodoList {
   title: string;
@@ -61,14 +61,14 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("access_token");
     setToken(token);
   }, []);
 
   // TDL 불러오기
   useEffect(() => {
     const fetchTodolist = async () => {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("access_token");
       if (!token) return;
 
       try {
@@ -83,7 +83,9 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
             },
           );
           setTodolist(response.data);
-        } else {
+        } 
+        
+        else {
           const formattedDate = formatDate(selectedDate);
           const response = await axios.get(
             `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private`,
@@ -97,7 +99,9 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
           );
           setTodolist(response.data.tdl || []);
         }
-      } catch (error) {
+      } 
+      
+      catch (error) {
         console.error("Error fetching todolist:", error);
         setTodolist([]);
       }

@@ -43,12 +43,12 @@ function Signin() {
       );
 
       if (response.status === 200) {
-        const { accessToken, refreshToken } = response.data;
+        const { access_token, refresh_token } = response.data;
 
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("refresh_token", refresh_token);
 
-        setTimeout(() => onSilentRefresh(accessToken), JWT_EXPIRY_TIME - 60000);
+        setTimeout(() => onSilentRefresh(access_token), JWT_EXPIRY_TIME - 60000);
         router.push("/");
       }
     } catch {
@@ -72,12 +72,12 @@ function Signin() {
       );
 
       if (response.status === 200) {
-        const { accessToken, refreshToken } = response.data;
+        const { access_token, refresh_token } = response.data;
 
-        localStorage.setItem("access_token", accessToken);
-        localStorage.setItem("refresh_token", refreshToken);
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem("refresh_token", refresh_token);
 
-        setTimeout(() => onSilentRefresh(accessToken), JWT_EXPIRY_TIME - 60000);
+        setTimeout(() => onSilentRefresh(access_token), JWT_EXPIRY_TIME - 60000);
       }
     } catch (error: any) {
       console.error("refresh 토큰 에러", error);

@@ -10,8 +10,8 @@ function SideBar() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    setToken(accessToken);
+    const access_token = localStorage.getItem("access_token");
+    setToken(access_token);
   }, []);
   const menus = [
     {

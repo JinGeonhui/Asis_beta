@@ -19,7 +19,7 @@ function GroupTeamUserList({ onUserCountChange }: GroupTeamUserListProps) {
 
   // 토큰을 먼저 세팅
   useEffect(() => {
-    setToken(localStorage.getItem("accessToken"));
+    setToken(localStorage.getItem("access_token"));
   }, []);
 
   // token이 준비된 후에만 fetchUserList 실행

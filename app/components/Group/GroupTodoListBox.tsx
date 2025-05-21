@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ClickBar } from "../ClickBar";
 import { Button } from "@/components/ui/button";
 import { GroupInsertModal } from "./GroupInsertModal";
-import { EditMoadl } from "../EditModal";
-import { DeleteMoadl } from "../DeleteModal";
+import { EditMoadl } from "../GroupModals";
+import { DeleteMoadl } from "../GroupModals";
 import { InviteModal } from "../InviteModal";
 import { useRouter } from "next/navigation";
 
@@ -76,8 +76,8 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    setToken(accessToken);
+    const access_token = localStorage.getItem("access_token");
+    setToken(access_token);
   }, []);
   const router = useRouter();
 
@@ -356,18 +356,8 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         {isOwner && (
           <div className="w-[94%] flex flex-row justify-end absolute bottom-4 gap-[1rem]">
             <Button onClick={() => setInsertModalOpen(true)}>추가하기</Button>
-            <Button
-              onClick={() => setEditModalOpen(true)}
-              disabled={!selectedTdl}
-            >
-              수정하기
-            </Button>
-            <Button
-              onClick={() => setDeleteModalOpen(true)}
-              disabled={!selectedTdl}
-            >
-              삭제하기
-            </Button>
+            <Button onClick={() => router.push("/Group/Edit")}>수정하기</Button>
+            <Button onClick={() => router.push("/Group/Delete")}>삭제하기</Button>
             <Button onClick={() => setInviteModalOpen(true)}>초대하기</Button>
           </div>
         )}

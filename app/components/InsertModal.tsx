@@ -14,9 +14,10 @@ export function InsertModal({ onClose, text }: Modalprops) {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("access_token");
     setToken(accessToken);
   }, []);
+
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -53,12 +54,17 @@ export function InsertModal({ onClose, text }: Modalprops) {
       );
 
       if (response.status === 200) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         onClose();
         location.reload();
       }
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("TodoList 추가 중 오류:", error);
-    } finally {
+    } 
+    
+    finally {
       setLoading(false);
     }
   };

@@ -14,8 +14,8 @@ export function GroupInsertModal({ onClose, text }: Modalprops) {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    setToken(accessToken);
+    const access_token = localStorage.getItem("access_token");
+    setToken(access_token);
   }, []);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -56,9 +56,13 @@ export function GroupInsertModal({ onClose, text }: Modalprops) {
         onClose();
         location.reload();
       }
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("TodoList 추가 중 오류:", error);
-    } finally {
+    } 
+    
+    finally {
       setLoading(false);
     }
   };

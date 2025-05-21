@@ -1,8 +1,8 @@
 import React from "react";
-// import { GroupCreate } from "@/app/components/Group/GroupCreate";
+import { GroupCreate } from "@/app/components/Group/GroupCreate";
 
 const GroupCreatePage = () => {
-  return null;
+  return <GroupCreate />
 };
 
 export default GroupCreatePage;

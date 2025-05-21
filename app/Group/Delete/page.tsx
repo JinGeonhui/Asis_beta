@@ -1,8 +1,8 @@
 import React from "react";
-// import { GroupDelete } from "@/app/components/Group/GroupDelete";
+import { GroupDelete } from "@/app/components/Group/GroupDelete";
 
 const GroupDeletePage = () => {
-  return null;
+  return <GroupDelete />
 };
 
 export default GroupDeletePage;

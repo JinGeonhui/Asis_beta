@@ -20,10 +20,11 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState("");
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    setToken(accessToken);
+    const access_token = localStorage.getItem("access_token");
+    setToken(access_token);
   }, []);
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -32,6 +33,8 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setLoading(true);
+
     if (!text || !value) return;
 
     const todayStr = getToday();
@@ -44,7 +47,7 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
     };
 
     try {
-      await axios.put(
+      const response = await axios.put(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/modify`,
         dto,
         {
@@ -56,10 +59,18 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
         },
       );
 
-      onClose(); // 성공 시 모달 닫기
-      location.reload();
-    } catch (error) {
+      if(response.status == 200){
+        onClose();
+        location.reload();
+      }
+    } 
+    
+    catch (error) {
       console.error("수정 실패", error);
+    }
+
+    finally {
+      setLoading(false);
     }
   };
 
@@ -74,6 +85,12 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
         }
       }}
     >
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-[4000]">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-opacity-60"></div>
+        </div>
+      )}
+
       <div className="w-[37.5rem] h-[20.25rem] bg-white rounded-[0.75rem]">
         <p className="font-[pretendard] font-bold text-[24px] mt-[1.75rem] ml-[3rem]">
           해당 TDL의 내용을 수정하시겠습니까?
@@ -116,7 +133,7 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
 
 export function PersonalDeleteMoadl({ onClose, text }: ModalProps) {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("access_token");
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
