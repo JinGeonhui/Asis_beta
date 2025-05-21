@@ -83,9 +83,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
             },
           );
           setTodolist(response.data);
-        } 
-        
-        else {
+        } else {
           const formattedDate = formatDate(selectedDate);
           const response = await axios.get(
             `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private`,
@@ -99,9 +97,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
           );
           setTodolist(response.data.tdl || []);
         }
-      } 
-      
-      catch (error) {
+      } catch (error) {
         console.error("Error fetching todolist:", error);
         setTodolist([]);
       }

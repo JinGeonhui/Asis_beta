@@ -11,9 +11,8 @@ export function ClickStrokeBar({
   className = "",
   onClick,
   selected,
-  focusColor
+  focusColor,
 }: ClickBarProps) {
-
   return (
     <div className="relative w-full" onClick={onClick}>
       <div

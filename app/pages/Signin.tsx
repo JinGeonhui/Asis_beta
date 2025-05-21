@@ -48,7 +48,10 @@ function Signin() {
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("refresh_token", refresh_token);
 
-        setTimeout(() => onSilentRefresh(access_token), JWT_EXPIRY_TIME - 60000);
+        setTimeout(
+          () => onSilentRefresh(access_token),
+          JWT_EXPIRY_TIME - 60000,
+        );
         router.push("/");
       }
     } catch {
@@ -77,7 +80,10 @@ function Signin() {
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("refresh_token", refresh_token);
 
-        setTimeout(() => onSilentRefresh(access_token), JWT_EXPIRY_TIME - 60000);
+        setTimeout(
+          () => onSilentRefresh(access_token),
+          JWT_EXPIRY_TIME - 60000,
+        );
       }
     } catch (error: any) {
       console.error("refresh 토큰 에러", error);

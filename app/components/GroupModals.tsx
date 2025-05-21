@@ -61,13 +61,9 @@ export function EditMoadl({ onClose, tdl }: Modalprops) {
         onClose();
         router.back();
       }
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("수정 실패:", error);
-    } 
-    
-    finally {
+    } finally {
       setLoading(false);
     }
   };

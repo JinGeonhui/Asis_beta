@@ -26,7 +26,7 @@ export function GroupCreate() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const access_token = window.localStorage.getItem("access_token");
+    const access_token = localStorage.getItem("access_token");
     setToken(access_token);
   }, []);
 

@@ -59,17 +59,13 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
         },
       );
 
-      if(response.status == 200){
+      if (response.status == 200) {
         onClose();
         location.reload();
       }
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("수정 실패", error);
-    }
-
-    finally {
+    } finally {
       setLoading(false);
     }
   };

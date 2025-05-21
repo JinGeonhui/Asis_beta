@@ -357,7 +357,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           <div className="w-[94%] flex flex-row justify-end absolute bottom-4 gap-[1rem]">
             <Button onClick={() => setInsertModalOpen(true)}>추가하기</Button>
             <Button onClick={() => router.push("/Group/Edit")}>수정하기</Button>
-            <Button onClick={() => router.push("/Group/Delete")}>삭제하기</Button>
+            <Button onClick={() => router.push("/Group/Delete")}>
+              삭제하기
+            </Button>
             <Button onClick={() => setInviteModalOpen(true)}>초대하기</Button>
           </div>
         )}
