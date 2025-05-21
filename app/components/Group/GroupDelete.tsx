@@ -11,7 +11,12 @@ export function GroupDelete() {
   const [tdls, setTdls] = useState<TodoList[]>([]);
   const [selectedTdl, setSelectedTdl] = useState<TodoList | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const token = localStorage.getItem("access_token");
+  const [token, setToken] = useState<string | null>(null);
+  
+    useEffect(() => {
+      const access_token = localStorage.getItem("access_token");
+      setToken(access_token);
+    }, []);
 
   function ModalClick() {
     setModalOpen(true);
