@@ -153,11 +153,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         part: item.part,
       }));
       setTodolist(tdlArr);
-      
+
       if (tdlArr.length > 0) setGroupNumber(tdlArr[0].groupNumber);
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("에러 발생(fetchTodolist-캘린더):", error);
       setTodolist([]);
       setOwnerName("");
