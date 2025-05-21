@@ -12,11 +12,11 @@ export function GroupEdit() {
   const [selectedTdl, setSelectedTdl] = useState<TodoList | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [token, setToken] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const access_token = localStorage.getItem("access_token");
-      setToken(access_token);
-    }, []);
+
+  useEffect(() => {
+    const access_token = localStorage.getItem("access_token");
+    setToken(access_token);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
