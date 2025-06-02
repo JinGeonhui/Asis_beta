@@ -112,9 +112,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         }));
         setTodolist(mapped);
         if (sups.length > 0) setGroupNumber(sups[0].groupNumber);
-      } 
-      
-      catch (error) {
+      } catch (error) {
         console.error("에러 발생(fetchTodolist-오늘):", error);
         setTodolist([]);
         setOwnerName("");
@@ -267,9 +265,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         },
       );
       alert("초대가 완료되었습니다!");
-    } 
-    
-    catch (error) {
+    } catch (error) {
       alert("초대 실패");
       console.error(error);
     }

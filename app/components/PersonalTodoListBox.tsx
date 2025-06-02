@@ -61,7 +61,6 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
   // TDL 불러오기
   useEffect(() => {
     const fetchTodolist = async () => {
-
       try {
         if (isToday(selectedDate)) {
           const response = await axios.get(

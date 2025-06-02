@@ -45,9 +45,7 @@ function Signin() {
       if (response.status === 200) {
         router.push("/");
       }
-    } 
-    
-    catch {
+    } catch {
       alert("로그인 도중에 문제가 생겼습니다.");
     }
   };
@@ -67,10 +65,7 @@ function Signin() {
       );
 
       if (response.status === 200) {
-        setTimeout(
-          onSilentRefresh,
-          JWT_EXPIRY_TIME - 60000,
-        );
+        setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
       }
     } catch (error: any) {
       console.error("refresh 토큰 에러", error);

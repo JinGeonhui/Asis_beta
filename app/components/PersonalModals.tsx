@@ -56,13 +56,9 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
         onClose();
         location.reload();
       }
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("수정 실패", error);
-    } 
-    
-    finally {
+    } finally {
       setLoading(false);
     }
   };

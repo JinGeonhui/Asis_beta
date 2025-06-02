@@ -26,13 +26,11 @@ function GroupTeamUserList({ onUserCountChange }: GroupTeamUserListProps) {
             headers: {
               "ngrok-skip-browser-warning": "69420",
             },
-          }
+          },
         );
         setUserList(response.data);
         if (onUserCountChange) onUserCountChange(response.data.length);
-      } 
-      
-      catch (error) {
+      } catch (error) {
         console.error("유저 목록 불러오기 실패:", error);
         setUserList([]);
         if (onUserCountChange) onUserCountChange(0);
