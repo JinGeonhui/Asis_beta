@@ -11,12 +11,6 @@ export function GroupDelete() {
   const [tdls, setTdls] = useState<TodoList[]>([]);
   const [selectedTdl, setSelectedTdl] = useState<TodoList | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
 
   function ModalClick() {
     setModalOpen(true);
@@ -29,7 +23,6 @@ export function GroupDelete() {
           `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "ngrok-skip-browser-warning": "69420",
             },
             withCredentials: true,

@@ -58,18 +58,9 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
   const [selectedTdl, setSelectedTdl] = useState<string | null>(null);
   const [isReadOnly, setIsReadOnly] = useState(false);
 
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    setToken(token);
-  }, []);
-
   // TDL 불러오기
   useEffect(() => {
     const fetchTodolist = async () => {
-      const token = localStorage.getItem("access_token");
-      if (!token) return;
 
       try {
         if (isToday(selectedDate)) {
@@ -77,9 +68,9 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
             `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/get`,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
                 "ngrok-skip-browser-warning": "69420",
               },
+              withCredentials: true,
             },
           );
           setTodolist(response.data);
@@ -89,7 +80,6 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
             `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private`,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
                 "ngrok-skip-browser-warning": "69420",
               },
               params: { date: formattedDate },
@@ -144,9 +134,9 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "ngrok-skip-browser-warning": "69420",
           },
+          withCredentials: true,
         },
       );
     } catch (err) {

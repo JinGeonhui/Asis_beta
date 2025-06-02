@@ -11,12 +11,7 @@ interface Modalprops {
 
 export function GroupInsertModal({ onClose, text }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const [token, setToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -46,7 +41,6 @@ export function GroupInsertModal({ onClose, text }: Modalprops) {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         },

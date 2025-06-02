@@ -43,45 +43,32 @@ function Signin() {
       );
 
       if (response.status === 200) {
-        const { access_token, refresh_token } = response.data;
-
-        localStorage.setItem("access_token", access_token);
-        localStorage.setItem("refresh_token", refresh_token);
-
-        setTimeout(
-          () => onSilentRefresh(access_token),
-          JWT_EXPIRY_TIME - 60000,
-        );
         router.push("/");
       }
-    } catch {
+    } 
+    
+    catch {
       alert("로그인 도중에 문제가 생겼습니다.");
     }
   };
 
   // 토큰 갱신
-  const onSilentRefresh = async (accessToken: string) => {
+  const onSilentRefresh = async (access_token: string) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/auth/refresh`,
-        { accessToken: accessToken },
+        { access_token: access_token },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
           },
           withCredentials: true,
         },
       );
 
       if (response.status === 200) {
-        const { access_token, refresh_token } = response.data;
-
-        localStorage.setItem("access_token", access_token);
-        localStorage.setItem("refresh_token", refresh_token);
-
         setTimeout(
-          () => onSilentRefresh(access_token),
+          onSilentRefresh,
           JWT_EXPIRY_TIME - 60000,
         );
       }

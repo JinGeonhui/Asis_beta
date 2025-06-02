@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 
 function getToday() {
@@ -19,13 +19,7 @@ interface ModalProps {
 export function PersonalEditMoadl({ onClose, text }: ModalProps) {
   const modalBackground = useRef<HTMLDivElement>(null);
   const [value, setValue] = useState("");
-  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -53,7 +47,6 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         },
@@ -63,9 +56,13 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
         onClose();
         location.reload();
       }
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("수정 실패", error);
-    } finally {
+    } 
+    
+    finally {
       setLoading(false);
     }
   };

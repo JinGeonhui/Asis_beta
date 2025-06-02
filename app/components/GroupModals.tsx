@@ -51,7 +51,6 @@ export function EditMoadl({ onClose, tdl }: Modalprops) {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         },
@@ -61,9 +60,13 @@ export function EditMoadl({ onClose, tdl }: Modalprops) {
         onClose();
         router.back();
       }
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("수정 실패:", error);
-    } finally {
+    } 
+    
+    finally {
       setLoading(false);
     }
   };
@@ -133,12 +136,6 @@ export function EditMoadl({ onClose, tdl }: Modalprops) {
 
 export function DeleteMoadl({ onClose, tdl }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
   const router = useRouter();
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -153,7 +150,6 @@ export function DeleteMoadl({ onClose, tdl }: Modalprops) {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
           data: dto,
@@ -164,7 +160,9 @@ export function DeleteMoadl({ onClose, tdl }: Modalprops) {
         onClose();
         router.back();
       }
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error("삭제 중 오류:", error);
     }
   };

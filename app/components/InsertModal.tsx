@@ -11,12 +11,6 @@ interface Modalprops {
 
 export function InsertModal({ onClose, text }: Modalprops) {
   const modalBackground = useRef<HTMLDivElement>(null);
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
-    setToken(accessToken);
-  }, []);
 
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -47,7 +41,6 @@ export function InsertModal({ onClose, text }: Modalprops) {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         },

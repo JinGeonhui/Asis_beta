@@ -15,41 +15,32 @@ interface GroupTeamUserListProps {
 
 function GroupTeamUserList({ onUserCountChange }: GroupTeamUserListProps) {
   const [userList, setUserList] = useState<UserInfo[]>([]);
-  const [token, setToken] = useState<string | null>(null);
 
-  // 토큰을 먼저 세팅
   useEffect(() => {
-    setToken(localStorage.getItem("access_token"));
-  }, []);
-
-  // token이 준비된 후에만 fetchUserList 실행
-  useEffect(() => {
-    if (!token) return; // token이 없으면 실행하지 않음
-
     async function fetchUserList() {
       try {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/userlist`,
           {
+            withCredentials: true,
             headers: {
-              Authorization: `Bearer ${token}`,
               "ngrok-skip-browser-warning": "69420",
             },
-          },
+          }
         );
-
         setUserList(response.data);
         if (onUserCountChange) onUserCountChange(response.data.length);
-      } catch (error) {
+      } 
+      
+      catch (error) {
         console.error("유저 목록 불러오기 실패:", error);
-
         setUserList([]);
         if (onUserCountChange) onUserCountChange(0);
       }
     }
 
     fetchUserList();
-  }, [token, onUserCountChange]); // token이 바뀔 때마다 실행
+  }, [onUserCountChange]);
 
   return (
     <div className="w-[20rem] h-[32.6rem] bg-white rounded-md border shadow flex flex-col items-center">

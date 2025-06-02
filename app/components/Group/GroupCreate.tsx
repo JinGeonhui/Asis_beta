@@ -23,12 +23,6 @@ export function GroupCreate() {
   >([]);
   const [inputValue, setInputValue] = useState(""); // 입력값 상태
   const [tdls, setTdls] = useState<string[]>([]); // 추가된 TDL 목록 상태
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
 
   const router = useRouter();
 
@@ -158,7 +152,6 @@ export function GroupCreate() {
         {
           headers: {
             "ngrok-skip-browser-warning": "69420",
-            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         },

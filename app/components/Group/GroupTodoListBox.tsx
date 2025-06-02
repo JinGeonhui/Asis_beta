@@ -73,13 +73,8 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const [optimisticMap, setOptimisticMap] = useState<
     Record<number, OptimisticState>
   >({});
-  const [token, setToken] = useState<string | null>(null);
   const [isReadOnly, setIsReadOnly] = useState(false);
 
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
   const router = useRouter();
 
   useEffect(() => {
@@ -91,8 +86,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
   // 할 일 리스트 가져오는 API
   const fetchTodolist = async () => {
-    if (!token) return;
-
     // 오늘이면 항상 group/toDoList/get에서 받아오기
     if (isToday(selectedDate)) {
       try {
@@ -100,7 +93,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
               "ngrok-skip-browser-warning": "69420",
             },
           },
@@ -120,7 +112,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         }));
         setTodolist(mapped);
         if (sups.length > 0) setGroupNumber(sups[0].groupNumber);
-      } catch (error) {
+      } 
+      
+      catch (error) {
         console.error("에러 발생(fetchTodolist-오늘):", error);
         setTodolist([]);
         setOwnerName("");
@@ -135,7 +129,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/group`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "ngrok-skip-browser-warning": "69420",
           },
           params: { date: formattedDate },
@@ -165,7 +158,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   // 날짜 데이터가 입력될 시 TDL 가져오는 API 다시 불러오기
   useEffect(() => {
     fetchTodolist();
-  }, [selectedDate, token]);
+  }, [selectedDate]);
 
   // 서버 push(WebSocket 등)로 todolist가 오면 setTodolist로 동기화 + 낙관적 상태 초기화
   useEffect(() => {
@@ -214,7 +207,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "ngrok-skip-browser-warning": "69420",
             "Content-Type": "application/json",
           },
@@ -269,14 +261,15 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "ngrok-skip-browser-warning": "69420",
             "Content-Type": "application/json",
           },
         },
       );
       alert("초대가 완료되었습니다!");
-    } catch (error) {
+    } 
+    
+    catch (error) {
       alert("초대 실패");
       console.error(error);
     }

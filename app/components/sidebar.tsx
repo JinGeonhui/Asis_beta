@@ -7,12 +7,6 @@ import axios from "axios";
 function SideBar() {
   const router = useRouter();
   const pathname = usePathname();
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    setToken(access_token);
-  }, []);
   const menus = [
     {
       id: "user",
@@ -59,7 +53,6 @@ function SideBar() {
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/isMember`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "ngrok-skip-browser-warning": "69420",
           },
         },
