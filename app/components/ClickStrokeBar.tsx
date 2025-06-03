@@ -17,8 +17,7 @@ export function ClickStrokeBar({
     <div className="relative w-full" onClick={onClick}>
       <div
         className={`
-          w-full h-[56px] flex rounded-[8px] items-center px-4 cursor-pointer justify-between
-         bg-[#F2F4F7] border
+          w-full h-[56px] flex rounded-[8px] items-center px-4 cursor-pointer justify-between bg-[#F2F4F7] border
           ${selected ? `border-[${focusColor}]` : ""}
           ${className}
         `}

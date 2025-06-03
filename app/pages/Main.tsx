@@ -11,8 +11,9 @@ function Main() {
   const [userCount, setUserCount] = useState(0); // 현재 인원 상태 추가
 
   return (
-    <div className="flex flex-row">
+    <div className="w-screen h-screen flex flex-row">
       <SideBar />
+
       <div id="RangeSection" className="w-full flex flex-col">
         <div className="mt-[1.5rem] w-full pl-10 flex flex-row">
           <GroupTodoListBox

@@ -89,12 +89,12 @@ function Signin() {
   };
 
   return (
-    <div className="w-[1707px] h-[905px] bg-white flex flex-col items-center">
-      <div className="absolute top-8 left-12">
+    <div className="w-screen h-screen bg-white flex flex-col items-center">
+      <div className="absolute top-[2rem] left-[3.5rem]">
         <Logo />
       </div>
 
-      <div className="absolute top-12 left-[1550px]">
+      <div className="absolute top-[3rem] right-[3.5rem]">
         <button
           className="bg-[#1570EF] w-[67px] h-[27px] rounded-[5px] text-white font-[pretendard] text-[14px]"
           onClick={GoSignup}
@@ -103,7 +103,7 @@ function Signin() {
         </button>
       </div>
 
-      <div className="relative top-[183px] flex flex-col items-center gap-[42px]">
+      <div className="relative top-[10rem] flex flex-col items-center gap-[42px]">
         <p className="font-[pretendard] text-[44px] font-bold">
           자기개발을 다시하려고 하시나요?
         </p>
@@ -154,13 +154,13 @@ function Signin() {
         </div>
       </div>
 
-      <div className="flex flex-row gap-3 absolute top-[605px] items-center">
+      <div className="flex flex-row gap-3 absolute top-[34rem] items-center">
         <line className="bg-[#CECED2] w-[260px] h-[1px]" />
         <p className="text-[#CECED2] font-[pretendard]">or</p>
         <line className="bg-[#CECED2] w-[260px] h-[1px]" />
       </div>
 
-      <div className="flex flex-col absolute top-[686px] gap-3">
+      <div className="flex flex-col absolute top-[37rem] gap-3">
         <div>
           <img src="Kakao.svg" className="absolute top-[16px] left-6" />
           <button
