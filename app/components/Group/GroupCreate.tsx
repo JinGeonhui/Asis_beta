@@ -169,7 +169,7 @@ export function GroupCreate() {
     <SettingPage>
       <div className="w-full h-screen flex flex-col items-center">
         <div className="w-full flex-1 overflow-y-scroll overflow-x-hidden scrollbar-hide pb-[300px] flex flex-col items-center">
-          <div className="w-[703px] relative top-[150px] font-[pretendard] flex flex-col items-start">
+          <div className="w-[703px] relative top-[30%] font-[pretendard] flex flex-col items-start">
             <p className="font-bold text-[30px]">
               단체 TDL을 함께할 친구를 초대해주세요
             </p>
@@ -230,7 +230,7 @@ export function GroupCreate() {
             </div>
           </div>
 
-          <div className="w-[703px] font-[pretendard] flex flex-col items-start relative top-[215px] gap-[14px]">
+          <div className="w-[703px] font-[pretendard] flex flex-col items-start relative top-[43%] gap-[14px]">
             <p className="font-bold text-[30px]">
               단체 TDL의 목표 TDL을 작성해주세요
             </p>
@@ -269,7 +269,7 @@ export function GroupCreate() {
             )}
           </div>
 
-          <div className="w-[703px] flex flex-col items-end relative top-[246px]">
+          <div className="w-[703px] flex flex-col items-end relative top-[49%]">
             <button
               className="w-[100px] h-[41px] font-[pretendard] font-semibold text-[18px] bg-[#1570EF] text-white rounded-[8px]"
               onClick={handleSubmit}

@@ -10,7 +10,7 @@ interface Props {
 
 function CalendarDemo({ selectedDate, onSelectDate }: Props) {
   return (
-    <div className="w-[20rem] h-[19rem] bg-white flex justify-center items-center rounded-md border shadow">
+    <div className="w-[93%] h-[19rem] bg-white flex justify-center items-center rounded-md border shadow">
       <Calendar
         mode="single"
         selected={selectedDate}

@@ -12,6 +12,7 @@ function Home() {
   return (
     <div className="flex flex-row">
       <SideBar />
+      
       <div id="RangeSection" className="w-full flex flex-col">
         <div id="Header" className="pl-10 mt-[2rem]">
           <DashbordHeader />
@@ -25,7 +26,7 @@ function Home() {
 
           <div
             id="MiddleContainer"
-            className="flex flex-col w-[24rem] gap-[2rem] pl-10"
+            className="flex flex-col w-[24rem] pl-[3%]"
           >
             <CalendarDemo
               selectedDate={selectedDate}

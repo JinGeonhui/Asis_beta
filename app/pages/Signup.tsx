@@ -83,7 +83,7 @@ function Signup() {
         </button>
       </div>
 
-      <div className="relative top-[8rem] flex flex-col items-center gap-[42px]">
+      <div className="relative top-[14%] flex flex-col items-center gap-[12px]">
         <p className="font-[pretendard] text-[44px] font-bold">
           자기개발을 시작하려고 하시나요?
         </p>
@@ -135,7 +135,7 @@ function Signup() {
             />
             <div
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-[465px] right-8 "
+              className="absolute top-[73.5%] right-8 "
             >
               {showPassword ? (
                 <AiFillEyeInvisible color="#1570EF" size={24} />
@@ -160,7 +160,7 @@ function Signup() {
             />
             <div
               onClick={() => setShowPasswordRe(!showPasswordRe)}
-              className="absolute top-[568px] right-8 "
+              className="absolute top-[90.8%] right-8 "
             >
               {showPasswordRe ? (
                 <AiFillEyeInvisible color="#1570EF" size={24} />
@@ -172,7 +172,7 @@ function Signup() {
 
           <div>
             <button
-              className="bg-[#1570EF] w-[80px] h-[40px] absolute right-4 font-[pretendard] text-white rounded-lg"
+              className="bg-[#1570EF] w-[80px] h-[40px] absolute right-4 font-[pretendard] text-white rounded-lg mt-6"
               onClick={handleSubmit}
             >
               확인

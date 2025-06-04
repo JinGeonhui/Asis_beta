@@ -55,6 +55,7 @@ function SideBar() {
           headers: {
             "ngrok-skip-browser-warning": "69420",
           },
+          withCredentials: true,
         },
       );
       if (response.data === true) {
@@ -74,9 +75,9 @@ function SideBar() {
   };
 
   return (
-    <div className="w-[285px] h-screen bg-white flex justify-start flex-col items-center gap-5 py-4">
+    <div className="w-[285px] h-[screen] bg-white flex justify-start flex-col items-center gap-5 py-4">
       <div
-        className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-1"
+        className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-[5%]"
         onClick={() => router.push("/")}
       >
         <img src="/LogoIcon.svg" className="w-[45px] h-[45px]" />

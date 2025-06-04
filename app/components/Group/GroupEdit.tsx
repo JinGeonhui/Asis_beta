@@ -55,10 +55,10 @@ export function GroupEdit() {
 
       <div className="w-full h-screen flex flex-col items-center">
         <div className="w-full flex-1 overflow-y-scroll overflow-x-hidden scrollbar-hide pb-[300px] flex flex-col items-center">
-          <div className="w-[703px] relative top-[150px] font-[pretendard] flex flex-col items-start">
+          <div className="w-[56%] relative top-[34%] font-[pretendard] flex flex-col items-start">
             <p className="font-bold text-[30px]">수정할 TDL을 선택해주세요</p>
 
-            <div className="w-full flex flex-col gap-[22px] relative top-[31px]">
+            <div className="w-full flex flex-col gap-[22px] relative top-[14%]">
               {tdls.length > 0 && (
                 <div className="flex flex-col gap-[14px] w-full">
                   <p className="font-medium">수정할 TDL 목록</p>
@@ -78,7 +78,7 @@ export function GroupEdit() {
             </div>
           </div>
 
-          <div className="w-[703px] flex flex-col items-end relative top-[246px]">
+          <div className="w-[56%] flex flex-col items-end relative top-[50%]">
             <button
               className="w-[100px] h-[41px] font-[pretendard] font-semibold text-[18px] bg-[#1570EF] text-white rounded-[8px]"
               onClick={ModalClick}

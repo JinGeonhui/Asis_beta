@@ -26,14 +26,14 @@ function DashbordHeader() {
   const remainingTime = `오늘 하루까지 ${remaining.hours}시간 ${remaining.minutes}분 남았어요!`;
 
   return (
-    <div className="w-[72rem] h-[212px] bg-white rounded-2xl relative overflow-hidden">
-      <div className="absolute right-[425px] -top-1/2 w-[80%] h-[160%] bg-[#1570EF] -rotate-45" />
+    <div className="w-[96.7%] h-[212px] bg-white rounded-2xl relative overflow-hidden">
+      <div className="absolute right-[32%] -top-1/2 w-[84%] h-[160%] bg-[#1570EF] -rotate-45" />
 
-      <div className="relative z-10 text-white flex flex-col justify-center items-start h-full pl-[150px]">
-        <h2 className="text-[45px] font-bold font-[pretendard] relative top-2 left-[1rem]">
+      <div className="relative z-10 text-white flex flex-col justify-center items-start h-full pl-[10%]">
+        <h2 className="text-[45px] font-bold font-[pretendard] relative top-2">
           {formattedTime}
         </h2>
-        <p className="text-[18px] mt-4 font-[pretendard] font-semibold relative top-8 right-[4rem]">
+        <p className="text-[18px] mt-4 font-[pretendard] font-semibold relative top-8 right-[5%]">
           {remainingTime}
         </p>
       </div>

@@ -103,7 +103,7 @@ function Signin() {
         </button>
       </div>
 
-      <div className="relative top-[10rem] flex flex-col items-center gap-[42px]">
+      <div className="relative top-[20%] flex flex-col items-center gap-[42px]">
         <p className="font-[pretendard] text-[44px] font-bold">
           자기개발을 다시하려고 하시나요?
         </p>
@@ -154,13 +154,13 @@ function Signin() {
         </div>
       </div>
 
-      <div className="flex flex-row gap-3 absolute top-[34rem] items-center">
+      <div className="flex flex-row gap-3 absolute top-[68.5%] items-center">
         <line className="bg-[#CECED2] w-[260px] h-[1px]" />
         <p className="text-[#CECED2] font-[pretendard]">or</p>
         <line className="bg-[#CECED2] w-[260px] h-[1px]" />
       </div>
 
-      <div className="flex flex-col absolute top-[37rem] gap-3">
+      <div className="flex flex-col absolute top-[74.5%] gap-3">
         <div>
           <img src="Kakao.svg" className="absolute top-[16px] left-6" />
           <button

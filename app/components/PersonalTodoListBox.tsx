@@ -175,7 +175,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
         />
       )}
 
-      <div className="w-[49.5rem] h-[31.125rem] bg-white rounded-lg flex flex-col items-center border shadow relative overflow-hidden">
+      <div className="w-[66.5%] h-[90%] bg-white rounded-lg flex flex-col items-center border shadow relative overflow-hidden">
         <div className="w-[90%] relative flex flex-row justify-between mt-[1rem]">
           <div className="flex flex-row gap-[0.37rem]">
             <p className="font-[pretendard] text-[1.875rem] font-bold">
@@ -218,7 +218,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
           )}
         </div>
 
-        <div className="w-[90%] flex flex-row justify-end absolute bottom-4 gap-[1rem]">
+        <div className="w-[90%] flex flex-row justify-end absolute bottom-[5%] gap-[1rem]">
           <Button
             onClick={() => setInsertModalOpen(true)}
             disabled={isReadOnly}

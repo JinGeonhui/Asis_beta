@@ -95,6 +95,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             headers: {
               "ngrok-skip-browser-warning": "69420",
             },
+            withCredentials: true,
           },
         );
 
@@ -302,7 +303,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         />
       )}
 
-      <div className="w-[59.8125rem] h-[53.5625rem] bg-white rounded-lg flex flex-col items-center border shadow relative overflow-hidden">
+      <div className="w-[70%] h-[100%] bg-white rounded-lg flex flex-col items-center border shadow relative overflow-hidden">
         <div
           id="TopDetail"
           className="w-[94%] relative flex flex-row justify-between mt-[1rem]"
