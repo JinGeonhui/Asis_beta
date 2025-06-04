@@ -12,9 +12,11 @@ function Main() {
 
   return (
     <div className="w-screen h-screen flex flex-row">
-      <SideBar />
+      <div id="LeftSection" className="w-[20%] flex flex-col">
+        <SideBar />
+      </div>
 
-      <div id="RangeSection" className="w-full flex flex-col">
+      <div id="RangeSection" className="w-[80%] flex flex-col">
         <div className="mt-[1.5rem] w-full pl-10 flex flex-row">
           <GroupTodoListBox
             selectedDate={selectedDate}

@@ -10,10 +10,12 @@ function Home() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   return (
-    <div className="flex flex-row">
-      <SideBar />
+    <div className="w-full h-full flex flex-row">
+      <div id="LeftSection" className="w-[20%] flex flex-col">
+        <SideBar />
+      </div>
 
-      <div id="RangeSection" className="w-full flex flex-col">
+      <div id="RangeSection" className="w-[80%] flex flex-col">
         <div id="Header" className="pl-10 mt-[2rem]">
           <DashbordHeader />
         </div>

@@ -89,11 +89,13 @@ function Signin() {
   };
 
   return (
-    <div className="w-screen h-screen bg-white flex flex-col items-center">
+    <div className="w-screen h-screen bg-white flex flex-col items-center relative">
+      {/* 로고 */}
       <div className="absolute top-[2rem] left-[3.5rem]">
         <Logo />
       </div>
 
+      {/* 회원가입 버튼 */}
       <div className="absolute top-[3rem] right-[3.5rem]">
         <button
           className="bg-[#1570EF] w-[67px] h-[27px] rounded-[5px] text-white font-[pretendard] text-[14px]"
@@ -103,16 +105,19 @@ function Signin() {
         </button>
       </div>
 
-      <div className="relative top-[20%] flex flex-col items-center gap-[42px]">
-        <p className="font-[pretendard] text-[44px] font-bold">
+      {/* 메인 컨텐츠 */}
+      <div className="flex flex-col items-center justify-center h-full w-full">
+        <p className="font-[pretendard] text-[44px] font-bold mt-[2.5rem] mb-10 text-center">
           자기개발을 다시하려고 하시나요?
         </p>
 
-        <div className="flex flex-col gap-[18px]">
-          <div className="flex flex-col gap-[11px]">
+        {/* 로그인 폼 */}
+        <div className="flex flex-col gap-[18px] w-full max-w-[545px] items-center">
+          {/* 이메일 */}
+          <div className="flex flex-col gap-[11px] w-full">
             <p className="font-[pretendard] text-base font-medium">이메일</p>
             <input
-              className="bg-[#F2F4F7] w-[545px] h-[50px] rounded-lg placeholder:text-[#95979D] pl-4 focus:outline-none"
+              className="bg-[#F2F4F7] w-full h-[50px] rounded-lg placeholder:text-[#95979D] pl-4 focus:outline-none"
               placeholder="이메일을 입력해주세요"
               type="email"
               value={email}
@@ -121,10 +126,11 @@ function Signin() {
             />
           </div>
 
-          <div className="flex flex-col gap-[11px]">
+          {/* 비밀번호 */}
+          <div className="flex flex-col gap-[11px] w-full relative">
             <p className="font-[pretendard] text-base font-medium">비밀번호</p>
             <input
-              className="bg-[#F2F4F7] w-[545px] h-[50px] rounded-lg placeholder:text-[#95979D] pl-4 focus:outline-none"
+              className="bg-[#F2F4F7] w-full h-[50px] rounded-lg placeholder:text-[#95979D] pl-4 focus:outline-none"
               placeholder="비밀번호을 입력해주세요"
               type={showPassword ? "text" : "password"}
               value={password}
@@ -133,7 +139,7 @@ function Signin() {
             />
             <div
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-[260px] right-8 "
+              className="absolute top-[45px] right-4 cursor-pointer"
             >
               {showPassword ? (
                 <AiFillEyeInvisible color="#1570EF" size={24} />
@@ -143,49 +149,58 @@ function Signin() {
             </div>
           </div>
 
-          <div>
+          {/* 확인 버튼 */}
+          <div className="w-full flex justify-end">
             <button
-              className="bg-[#1570EF] w-[80px] h-[40px] top-[330px] absolute right-4 font-[pretendard] text-white rounded-lg"
+              className="bg-[#1570EF] w-[80px] h-[40px] font-[pretendard] text-white rounded-lg mt-[2rem]"
               onClick={handleSubmit}
             >
               확인
             </button>
           </div>
         </div>
-      </div>
 
-      <div className="flex flex-row gap-3 absolute top-[68.5%] items-center">
-        <line className="bg-[#CECED2] w-[260px] h-[1px]" />
-        <p className="text-[#CECED2] font-[pretendard]">or</p>
-        <line className="bg-[#CECED2] w-[260px] h-[1px]" />
-      </div>
+        {/* 구분선 + or */}
+        <div className="flex flex-row items-center w-full max-w-[545px] gap-3 my-8">
+          <div className="bg-[#CECED2] h-[1px] flex-1" />
+          <p className="text-[#CECED2] font-[pretendard]">or</p>
+          <div className="bg-[#CECED2] h-[1px] flex-1" />
+        </div>
 
-      <div className="flex flex-col absolute top-[74.5%] gap-3">
-        <div>
-          <img src="Kakao.svg" className="absolute top-[16px] left-6" />
+        {/* 소셜 로그인 버튼 */}
+        <div className="flex flex-col gap-3 w-full max-w-[545px] items-center">
           <button
             onClick={handleSocialKakao}
-            className="w-[180px] h-[50px] bg-[#FEE500] rounded-md font-[pretendard] pl-6"
+            className="w-[180px] h-[50px] bg-[#FEE500] rounded-md font-[pretendard] flex items-center pl-6 relative"
           >
-            카카오 로그인
+            <img
+              src="Kakao.svg"
+              className="w-6 h-6 absolute left-6"
+              alt="카카오"
+            />
+            <span className="mx-auto">카카오 로그인</span>
           </button>
-        </div>
-        <div>
-          <img src="Naver.svg" className="absolute top-[78.5px] left-6" />
           <button
             onClick={handleSocialNaver}
-            className="w-[180px] h-[50px] bg-[#03C75A] rounded-md font-[pretendard] text-white pl-6"
+            className="w-[180px] h-[50px] bg-[#03C75A] rounded-md font-[pretendard] text-white flex items-center pl-6 relative"
           >
-            네이버 로그인
+            <img
+              src="Naver.svg"
+              className="w-6 h-6 absolute left-6"
+              alt="네이버"
+            />
+            <span className="mx-auto">네이버 로그인</span>
           </button>
-        </div>
-        <div>
-          <img src="Google.svg" className="absolute top-[136px] left-5" />
           <button
             onClick={handleSocialGoogle}
-            className="w-[180px] h-[50px] bg-white border rounded-md font-[pretendard] pl-6"
+            className="w-[180px] h-[50px] bg-white border rounded-md font-[pretendard] flex items-center pl-6 relative"
           >
-            구글로 로그인
+            <img
+              src="Google.svg"
+              className="w-6 h-6 absolute left-6"
+              alt="구글"
+            />
+            <span className="mx-auto">구글로 로그인</span>
           </button>
         </div>
       </div>
