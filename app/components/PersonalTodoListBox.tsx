@@ -68,7 +68,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
                 "ngrok-skip-browser-warning": "69420",
               },
               withCredentials: true,
-            }
+            },
           );
           setTodolist(res.data);
         } else {
@@ -80,7 +80,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
                 "ngrok-skip-browser-warning": "69420",
               },
               params: { date: formatted },
-            }
+            },
           );
           setTodolist(res.data.tdl || []);
         }
@@ -113,7 +113,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
     if (!target) return;
 
     const updatedList = todolist.map((tdl) =>
-      tdl.title === title ? { ...tdl, completed: !tdl.completed } : tdl
+      tdl.title === title ? { ...tdl, completed: !tdl.completed } : tdl,
     );
     setTodolist(updatedList);
 
@@ -129,7 +129,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
             "ngrok-skip-browser-warning": "69420",
           },
           withCredentials: true,
-        }
+        },
       );
     } catch (err) {
       console.error("완료 상태 업데이트 실패:", err);
@@ -138,11 +138,14 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
 
   const completedCount = filteredList.filter((t) => t.completed).length;
 
-  const grouped = filteredList.reduce((acc, tdl) => {
-    if (!acc[tdl.category]) acc[tdl.category] = [];
-    acc[tdl.category].push(tdl);
-    return acc;
-  }, {} as Record<string, TodoList[]>);
+  const grouped = filteredList.reduce(
+    (acc, tdl) => {
+      if (!acc[tdl.category]) acc[tdl.category] = [];
+      acc[tdl.category].push(tdl);
+      return acc;
+    },
+    {} as Record<string, TodoList[]>,
+  );
 
   return (
     <>
@@ -164,7 +167,6 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
 
       {/* flex-1로 RangeSection의 세로 공간을 꽉 채우도록 하고, 내부 리스트에만 스크롤이 생기게 함 */}
       <div className="w-[66.5%] bg-white rounded-lg flex flex-col items-center border shadow flex-1 min-h-0">
-
         {/* 헤더 */}
         <div className="w-[90%] flex flex-row justify-between mt-6 mb-4 flex-shrink-0">
           <div className="flex flex-col">
@@ -208,7 +210,10 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
 
         {/* 버튼 영역 */}
         <div className="w-[90%] py-4 flex justify-end gap-3 flex-shrink-0">
-          <Button onClick={() => setInsertModalOpen(true)} disabled={isReadOnly}>
+          <Button
+            onClick={() => setInsertModalOpen(true)}
+            disabled={isReadOnly}
+          >
             추가하기
           </Button>
           <Button

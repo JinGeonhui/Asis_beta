@@ -10,11 +10,14 @@ function Home() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   return (
-    <div className="w-full h-screen flex flex-row"> {/* h-screen으로 전체 높이 고정 */}
-      <div id="LeftSection" className="w-[20%] h-screen flex flex-col"> {/* h-screen 추가 */}
+    <div className="w-full h-screen flex flex-row">
+      {" "}
+      {/* h-screen으로 전체 높이 고정 */}
+      <div id="LeftSection" className="w-[20%] h-screen flex flex-col">
+        {" "}
+        {/* h-screen 추가 */}
         <SideBar />
       </div>
-
       {/* RangeSection에만 overflow-y-auto, h-screen, flex-col */}
       <div
         id="RangeSection"
@@ -30,10 +33,7 @@ function Home() {
             onSelectDate={setSelectedDate}
           />
 
-          <div
-            id="MiddleContainer"
-            className="flex flex-col w-[24rem] pl-[3%]"
-          >
+          <div id="MiddleContainer" className="flex flex-col w-[24rem] pl-[3%]">
             <CalendarDemo
               selectedDate={selectedDate}
               onSelectDate={setSelectedDate}

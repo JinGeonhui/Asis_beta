@@ -56,7 +56,7 @@ function SideBar() {
             "ngrok-skip-browser-warning": "69420",
           },
           withCredentials: true,
-        }
+        },
       );
       if (response.data === true) {
         router.push("/Group/Main");
@@ -75,7 +75,9 @@ function SideBar() {
   };
 
   return (
-    <div className="w-[15rem] h-screen bg-white flex justify-start flex-col items-center gap-5 py-4"> {/* h-screen으로 고정 */}
+    <div className="w-[15rem] h-screen bg-white flex justify-start flex-col items-center gap-5 py-4">
+      {" "}
+      {/* h-screen으로 고정 */}
       <div
         className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-[5%]"
         onClick={() => router.push("/")}
@@ -83,7 +85,6 @@ function SideBar() {
         <img src="/LogoIcon.svg" className="w-[45px] h-[45px]" />
         <img src="/LogoTextIcon.svg" className="w-[61px] h-[61px]" />
       </div>
-
       <div className="w-full flex flex-col items-center gap-3">
         {menus.map((menu) => {
           const isSelected = selected === menu.id;
