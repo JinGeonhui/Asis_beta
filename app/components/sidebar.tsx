@@ -56,7 +56,7 @@ function SideBar() {
             "ngrok-skip-browser-warning": "69420",
           },
           withCredentials: true,
-        },
+        }
       );
       if (response.data === true) {
         router.push("/Group/Main");
@@ -75,7 +75,7 @@ function SideBar() {
   };
 
   return (
-    <div className="w-[15rem] h-[100%] bg-white flex justify-start flex-col items-center gap-5 py-4">
+    <div className="w-[15rem] h-screen bg-white flex justify-start flex-col items-center gap-5 py-4"> {/* h-screen으로 고정 */}
       <div
         className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-[5%]"
         onClick={() => router.push("/")}

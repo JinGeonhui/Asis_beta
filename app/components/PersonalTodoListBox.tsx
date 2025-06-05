@@ -5,8 +5,7 @@ import { ClickBar } from "./ClickBar";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { InsertModal } from "./InsertModal";
-import { PersonalDeleteMoadl } from "./PersonalModals";
-import { PersonalEditMoadl } from "./PersonalModals";
+import { PersonalDeleteMoadl, PersonalEditMoadl } from "./PersonalModals";
 
 interface TodoList {
   title: string;
@@ -58,36 +57,35 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
   const [selectedTdl, setSelectedTdl] = useState<string | null>(null);
   const [isReadOnly, setIsReadOnly] = useState(false);
 
-  // TDL 불러오기
   useEffect(() => {
     const fetchTodolist = async () => {
       try {
         if (isToday(selectedDate)) {
-          const response = await axios.get(
+          const res = await axios.get(
             `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/get`,
             {
               headers: {
                 "ngrok-skip-browser-warning": "69420",
               },
               withCredentials: true,
-            },
+            }
           );
-          setTodolist(response.data);
+          setTodolist(res.data);
         } else {
-          const formattedDate = formatDate(selectedDate);
-          const response = await axios.get(
+          const formatted = formatDate(selectedDate);
+          const res = await axios.get(
             `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private`,
             {
               headers: {
                 "ngrok-skip-browser-warning": "69420",
               },
-              params: { date: formattedDate },
-            },
+              params: { date: formatted },
+            }
           );
-          setTodolist(response.data.tdl || []);
+          setTodolist(res.data.tdl || []);
         }
-      } catch (error) {
-        console.error("Error fetching todolist:", error);
+      } catch (err) {
+        console.error("Error fetching todolist:", err);
         setTodolist([]);
       }
     };
@@ -98,29 +96,24 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
     setIsReadOnly(!isToday(selectedDate));
   }, [selectedDate]);
 
-  // 날짜별로 필터링
   useEffect(() => {
     if (!isToday(selectedDate)) {
       setFilteredList(todolist);
     } else {
-      const formattedDate = formatDate(selectedDate);
-      setFilteredList(
-        todolist.filter((tdl) => tdl.startDate === formattedDate),
-      );
+      const formatted = formatDate(selectedDate);
+      setFilteredList(todolist.filter((t) => t.startDate === formatted));
     }
   }, [todolist, selectedDate]);
 
-  // TDL 선택 + 완료/미완료 토글
   const handleClickBar = async (title: string) => {
     if (isReadOnly) return;
 
     setSelectedTdl(title);
-
     const target = todolist.find((t) => t.title === title);
     if (!target) return;
 
     const updatedList = todolist.map((tdl) =>
-      tdl.title === title ? { ...tdl, completed: !tdl.completed } : tdl,
+      tdl.title === title ? { ...tdl, completed: !tdl.completed } : tdl
     );
     setTodolist(updatedList);
 
@@ -136,7 +129,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
             "ngrok-skip-browser-warning": "69420",
           },
           withCredentials: true,
-        },
+        }
       );
     } catch (err) {
       console.error("완료 상태 업데이트 실패:", err);
@@ -145,29 +138,23 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
 
   const completedCount = filteredList.filter((t) => t.completed).length;
 
-  // 카테고리별로 그룹화
-  const grouped = filteredList.reduce(
-    (acc, tdl) => {
-      if (!acc[tdl.category]) acc[tdl.category] = [];
-      acc[tdl.category].push(tdl);
-      return acc;
-    },
-    {} as Record<string, TodoList[]>,
-  );
+  const grouped = filteredList.reduce((acc, tdl) => {
+    if (!acc[tdl.category]) acc[tdl.category] = [];
+    acc[tdl.category].push(tdl);
+    return acc;
+  }, {} as Record<string, TodoList[]>);
 
   return (
     <>
       {insertModalOpen && (
         <InsertModal onClose={() => setInsertModalOpen(false)} />
       )}
-
       {editModalOpen && selectedTdl && (
         <PersonalEditMoadl
           onClose={() => setEditModalOpen(false)}
           text={selectedTdl}
         />
       )}
-
       {deleteModalOpen && selectedTdl && (
         <PersonalDeleteMoadl
           onClose={() => setDeleteModalOpen(false)}
@@ -175,30 +162,31 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
         />
       )}
 
-      <div className="w-[66.5%] h-[90%] bg-white rounded-lg flex flex-col items-center border shadow relative overflow-hidden">
-        <div className="w-[90%] relative flex flex-row justify-between mt-[1rem]">
-          <div className="flex flex-row gap-[0.37rem]">
-            <p className="font-[pretendard] text-[1.875rem] font-bold">
+      {/* flex-1로 RangeSection의 세로 공간을 꽉 채우도록 하고, 내부 리스트에만 스크롤이 생기게 함 */}
+      <div className="w-[66.5%] bg-white rounded-lg flex flex-col items-center border shadow flex-1 min-h-0">
+
+        {/* 헤더 */}
+        <div className="w-[90%] flex flex-row justify-between mt-6 mb-4 flex-shrink-0">
+          <div className="flex flex-col">
+            <span className="text-[1.875rem] font-bold">
               {formatDate(selectedDate)}
-            </p>
-            <p className="font-[pretendard] text-[0.9375rem] font-bold text-[#DBDEE3] mt-[0.8rem]">
+            </span>
+            <span className="text-sm font-semibold text-[#A0A4AA]">
               {getDayName(selectedDate)}
-            </p>
+            </span>
           </div>
-          <p className="font-[pretendard] text-[1.875rem] font-bold">
+          <span className="text-[1.875rem] font-bold">
             {completedCount}/{filteredList.length}
-          </p>
+          </span>
         </div>
 
-        <div
-          className="w-[90%] h-[28.5rem] mt-[1.2rem] flex flex-col gap-[0.8rem] overflow-y-auto"
-          style={{ maxHeight: "30rem" }}
-        >
+        {/* 리스트 스크롤 영역: flex-1, min-h-0, overflow-y-auto로 내부만 스크롤 */}
+        <div className="w-[90%] flex-1 min-h-0 overflow-y-auto pr-2 pb-4">
           {Object.keys(grouped).length === 0 ? (
             <p className="text-gray-400">할 일이 없습니다.</p>
           ) : (
             Object.entries(grouped).map(([category, items]) => (
-              <div key={category} style={{ marginBottom: "1.5rem" }}>
+              <div key={category} className="mb-6">
                 <div className="font-bold text-lg mb-2"># {category}</div>
                 <div className="flex flex-col gap-2">
                   {items.map((item, index) => (
@@ -218,11 +206,9 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
           )}
         </div>
 
-        <div className="w-[90%] flex flex-row justify-end absolute bottom-[5%] gap-[1rem]">
-          <Button
-            onClick={() => setInsertModalOpen(true)}
-            disabled={isReadOnly}
-          >
+        {/* 버튼 영역 */}
+        <div className="w-[90%] py-4 flex justify-end gap-3 flex-shrink-0">
+          <Button onClick={() => setInsertModalOpen(true)} disabled={isReadOnly}>
             추가하기
           </Button>
           <Button
