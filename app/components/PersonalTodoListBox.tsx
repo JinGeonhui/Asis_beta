@@ -80,6 +80,7 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
                 "ngrok-skip-browser-warning": "69420",
               },
               params: { date: formatted },
+              withCredentials: true,
             },
           );
           setTodolist(res.data.tdl || []);

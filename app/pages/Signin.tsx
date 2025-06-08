@@ -5,11 +5,13 @@ import Logo from "@/app/components/Logo";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import useUserStore from "../store/userStore";
 
 function Signin() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useUserStore();
 
   const router = useRouter();
   const JWT_EXPIRY_TIME = 24 * 3600 * 1000;
@@ -37,12 +39,16 @@ function Signin() {
         {
           headers: {
             "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": 69420,
           },
           withCredentials: true,
-        },
+        }
       );
 
       if (response.status === 200) {
+        const userData = response.data; // 서버에서 받은 유저 정보
+        setUser(userData);
+
         router.push("/");
       }
     } catch {

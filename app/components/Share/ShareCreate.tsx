@@ -1,8 +1,10 @@
+'use client'
+
 import React from "react";
-import SettingPage from "./templates/SettingPage";
-import { IconInput } from "./IconInput";
-import { IconTextBox } from "./IconTextBox";
-import { ChoosedBox } from "./ChoosedBox";
+import SettingPage from "../templates/SettingPage";
+import { IconInput } from "../IconInput";
+import { IconTextBox } from "../IconTextBox";
+import { ChoosedBox } from "../ChoosedBox";
 
 export function ShareCreate() {
   return (

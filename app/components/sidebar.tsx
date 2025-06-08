@@ -18,10 +18,16 @@ function SideBar() {
       icon: "/userNotIcon.svg",
       label: "단체 대시보드",
     },
+    {
+      id: "profile",
+      icon: "/userNotIcon.svg",
+      label: "프로필"
+    }
   ];
 
   const getInitialSelected = () => {
     if (pathname.startsWith("/Group")) return "users";
+    if (pathname === "/Profile") return "profile";
     if (pathname === "/") return "user";
     return "user";
   };
@@ -35,6 +41,9 @@ function SideBar() {
     } else if (pathname === "/") {
       setSelected("user");
       window.localStorage.setItem("sidebarSelected", "user");
+    } else if (pathname === "/Profile") {
+      setSelected("profile");
+      window.localStorage.setItem("sidebarSelected", "profile");
     }
   }, [pathname]);
 
@@ -45,7 +54,6 @@ function SideBar() {
     }
   };
 
-  // 단체 대시보드 클릭 핸들러
   const handleGroupDashboardClick = async () => {
     handleMenuClick("users");
     try {
@@ -68,16 +76,18 @@ function SideBar() {
     }
   };
 
-  // 개인 대시보드 클릭 핸들러
   const handleUserDashboardClick = () => {
     handleMenuClick("user");
     router.push("/");
   };
 
+  const handleProfileClick = () => {
+    handleMenuClick("profile");
+    router.push("/Profile");
+  };
+
   return (
     <div className="w-[15rem] h-screen bg-white flex justify-start flex-col items-center gap-5 py-4">
-      {" "}
-      {/* h-screen으로 고정 */}
       <div
         className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-[5%]"
         onClick={() => router.push("/")}
@@ -111,7 +121,27 @@ function SideBar() {
             );
           }
 
-          // 개인 대시보드
+          if (menu.id === "profile") {
+            return (
+              <div
+                key={menu.id}
+                onClick={handleProfileClick}
+                className={`w-[80%] h-[50px] flex flex-row justify-start items-center gap-[15px] rounded-[10px] px-4 cursor-pointer ${
+                  isSelected ? "bg-[#F0F3F9]" : "bg-white"
+                }`}
+              >
+                <img src={iconSrc} className="w-[21px] h-[21px]" />
+                <p
+                  className={`font-[Pretendard] font-semibold text-lg ${
+                    isSelected ? "text-[#2A3B5F]" : "text-[#9DA3AD]"
+                  }`}
+                >
+                  {menu.label}
+                </p>
+              </div>
+            );
+          }
+
           return (
             <div
               key={menu.id}
