@@ -42,7 +42,7 @@ function Signin() {
             "ngrok-skip-browser-warning": 69420,
           },
           withCredentials: true,
-        }
+        },
       );
 
       if (response.status === 200) {

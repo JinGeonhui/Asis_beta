@@ -12,7 +12,9 @@ import useUserStore from "@/app/store/userStore";
 
 export function GroupCreate() {
   const [userId, setUserId] = useState("");
-  const [friendData, setFriendData] = useState<{ friend: string; email: string; userCode: string }[]>([]);
+  const [friendData, setFriendData] = useState<
+    { friend: string; email: string; userCode: string }[]
+  >([]);
   const [selectedFriends, setSelectedFriends] = useState<typeof friendData>([]);
   const [inputValue, setInputValue] = useState("");
   const [tdls, setTdls] = useState<string[]>([]);
@@ -22,9 +24,9 @@ export function GroupCreate() {
   const email = "s23054@gsm.hs.kr";
   const { user } = useUserStore();
 
-    if (!user) {
-      return <div>Loading...</div>;
-    }
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && userId.trim()) {
@@ -35,22 +37,32 @@ export function GroupCreate() {
       // 새로운 SSE 연결
       const src = new EventSource(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/sse/group-invite?userCode=${user.userCode}`,
-        { withCredentials: true }
+        { withCredentials: true },
       );
       src.addEventListener("FRIEND_SEARCH", (e: MessageEvent) => {
         try {
           const data = JSON.parse(e.data);
           const mapped = Array.isArray(data)
-            ? data.map(item => ({ friend: item.name, email: item.email, userCode: item.userCode || "" }))
+            ? data.map((item) => ({
+                friend: item.name,
+                email: item.email,
+                userCode: item.userCode || "",
+              }))
             : data.name && data.email
-              ? [{ friend: data.name, email: data.email, userCode: data.userCode || "" }]
+              ? [
+                  {
+                    friend: data.name,
+                    email: data.email,
+                    userCode: data.userCode || "",
+                  },
+                ]
               : [];
           setFriendData(mapped);
         } catch {
           setFriendData([]);
         }
       });
-      src.onerror = err => {
+      src.onerror = (err) => {
         console.error("SSE error", err);
         src.close();
       };
@@ -64,31 +76,34 @@ export function GroupCreate() {
 
   const handleEnterTDL = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputValue.trim()) {
-      setTdls(prev => [...prev, inputValue.trim()]);
+      setTdls((prev) => [...prev, inputValue.trim()]);
       setInputValue("");
     }
   };
 
-  const handleAddFriend = (f: typeof selectedFriends[0]) => {
-    if (!selectedFriends.some(fr => fr.email === f.email)) {
-      setSelectedFriends(prev => [...prev, f]);
+  const handleAddFriend = (f: (typeof selectedFriends)[0]) => {
+    if (!selectedFriends.some((fr) => fr.email === f.email)) {
+      setSelectedFriends((prev) => [...prev, f]);
     }
   };
 
   const handleRemoveFriend = (email: string) =>
-    setSelectedFriends(prev => prev.filter(f => f.email !== email));
+    setSelectedFriends((prev) => prev.filter((f) => f.email !== email));
 
   const handleSubmit = async () => {
     const payload = {
       titles: tdls,
-      receivers: selectedFriends.map(f => f.userCode),
+      receivers: selectedFriends.map((f) => f.userCode),
       category: "운동",
     };
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/create`,
         payload,
-        { headers: { "ngrok-skip-browser-warning": "69420" }, withCredentials: true }
+        {
+          headers: { "ngrok-skip-browser-warning": "69420" },
+          withCredentials: true,
+        },
       );
       if (res.status === 200) router.push("/");
     } catch (error) {
@@ -101,7 +116,9 @@ export function GroupCreate() {
       <div className="w-full h-screen flex flex-col items-center">
         <div className="w-full flex-1 overflow-y-scroll overflow-x-hidden scrollbar-hide pb-[300px] flex flex-col items-center">
           <div className="w-[703px] relative top-[30%] font-[pretendard] flex flex-col items-start">
-            <p className="font-bold text-[30px]">단체 TDL을 함께할 친구를 초대해주세요</p>
+            <p className="font-bold text-[30px]">
+              단체 TDL을 함께할 친구를 초대해주세요
+            </p>
 
             <div className="w-full flex flex-col gap-[22px] relative top-[31px]">
               <div className="flex flex-col gap-[14px] w-full">
@@ -160,9 +177,13 @@ export function GroupCreate() {
           </div>
 
           <div className="w-[703px] font-[pretendard] flex flex-col items-start relative top-[43%] gap-[14px]">
-            <p className="font-bold text-[30px]">단체 TDL의 목표 TDL을 작성해주세요</p>
+            <p className="font-bold text-[30px]">
+              단체 TDL의 목표 TDL을 작성해주세요
+            </p>
             <div className="w-full flex flex-col gap-[13px]">
-              <p className="font-medium">추가할 TDL을 작성하고 Enter키를 눌러주세요</p>
+              <p className="font-medium">
+                추가할 TDL을 작성하고 Enter키를 눌러주세요
+              </p>
               <input
                 className="w-full h-[56px] pl-4 py-2 rounded-[8px] focus:outline-none focus:ring-1 focus:ring-[#1570EF] bg-[#F2F4F7] placeholder:color-[#95979D]"
                 placeholder="TDL을 적어주세요"
@@ -183,7 +204,9 @@ export function GroupCreate() {
                       iconPosition="right"
                       text={tdlItem}
                       iconAsButton={true}
-                      onIconClick={() => setTdls(prev => prev.filter((_, i) => i !== index))}
+                      onIconClick={() =>
+                        setTdls((prev) => prev.filter((_, i) => i !== index))
+                      }
                     />
                   ))}
                 </div>

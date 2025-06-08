@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
 import CertificateCard from "./CertificateCard";
@@ -67,13 +67,20 @@ function UserCertificateCard() {
       </div>
 
       {dDay !== null && (
-        <p className="text-sm text-gray-500">다음 웹디자인기능사 시험까지 D-{dDay}</p>
+        <p className="text-sm text-gray-500">
+          다음 웹디자인기능사 시험까지 D-{dDay}
+        </p>
       )}
 
       <div className="overflow-x-auto scrollbar-hide">
         <div className="flex gap-4 whitespace-nowrap">
           {certificates.map((cert, idx) => (
-            <CertificateCard key={idx} name={cert.name} date={cert.date} org={cert.org} />
+            <CertificateCard
+              key={idx}
+              name={cert.name}
+              date={cert.date}
+              org={cert.org}
+            />
           ))}
         </div>
       </div>

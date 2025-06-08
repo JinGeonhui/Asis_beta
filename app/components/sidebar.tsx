@@ -21,8 +21,8 @@ function SideBar() {
     {
       id: "profile",
       icon: "/userNotIcon.svg",
-      label: "프로필"
-    }
+      label: "프로필",
+    },
   ];
 
   const getInitialSelected = () => {

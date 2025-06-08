@@ -2,7 +2,7 @@ import React from "react";
 import { ShareCreate } from "@/app/components/Share/ShareCreate";
 
 const ShareCreatePage = () => {
-    return <ShareCreate />
-}
+  return <ShareCreate />;
+};
 
-export default ShareCreatePage
+export default ShareCreatePage;
