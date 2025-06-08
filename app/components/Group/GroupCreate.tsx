@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import SettingPage from "../templates/SettingPage";
 import { IconInput } from "../IconInput";
 import { IconTextBox } from "../../components/IconTextBox";
@@ -20,8 +20,6 @@ export function GroupCreate() {
   const [tdls, setTdls] = useState<string[]>([]);
   const eventSourceRef = useRef<EventSource | null>(null);
   const router = useRouter();
-  const params = useSearchParams();
-  const email = "s23054@gsm.hs.kr";
   const { user } = useUserStore();
 
   if (!user) {
