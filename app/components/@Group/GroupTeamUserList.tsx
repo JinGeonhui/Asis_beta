@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import User from "../User";
+import User from "../@User/User";
 import axios from "axios";
 
 interface UserInfo {

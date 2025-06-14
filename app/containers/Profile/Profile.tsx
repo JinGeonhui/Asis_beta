@@ -1,7 +1,8 @@
 import React from "react";
-import SideBar from "../components/sidebar";
-import UserCard from "../components/UserCard";
-import UserCertificateCard from "../components/UserCertificateCard";
+import SideBar from "@/app/components/Sidebar";
+import UserCard from "@/app/components/@User/UserCard";
+import UserCertificateCard from "@/app/components/@User/UserCertificateCard";
+import UserFriendCard from "@/app/components/@User/FriendsBox";
 
 function Profile() {
   return (
@@ -17,6 +18,7 @@ function Profile() {
       >
         <UserCard />
         <UserCertificateCard />
+        <UserFriendCard />
       </div>
     </div>
   );

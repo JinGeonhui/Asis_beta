@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import SideBar from "../components/sidebar";
-import DashbordHeader from "../components/DashbordHeader";
-import CalendarDemo from "../components/CalednarDemo";
-import PersonalTodoListBox from "../components/PersonalTodoListBox";
+import { SideBar } from "@/app/components";
+import { DashbordHeader } from "@/app/components";
+import { CalendarDemo } from "@/app/components";
+import { PersonalTodoListBox } from "@/app/components";
 
 function Home() {
   const [selectedDate, setSelectedDate] = useState(new Date());

@@ -5,8 +5,8 @@ import axios from "axios";
 import { ClickBar } from "../ClickBar";
 import { Button } from "@/components/ui/button";
 import { GroupInsertModal } from "./GroupInsertModal";
-import { EditMoadl } from "../GroupModals";
-import { DeleteMoadl } from "../GroupModals";
+import { EditMoadl } from "./GroupModals";
+import { DeleteMoadl } from "./GroupModals";
 import { InviteModal } from "../InviteModal";
 import { useRouter } from "next/navigation";
 

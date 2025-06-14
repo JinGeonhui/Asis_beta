@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import SideBar from "../components/sidebar";
-import GroupTodoListBox from "@/app/components/Group/GroupTodoListBox";
-import CalendarDemo from "../components/CalednarDemo";
-import GroupTeamUserList from "@/app/components/Group/GroupTeamUserList";
+import SideBar from "@/app/components/Sidebar";
+import GroupTodoListBox from "@/app/components/@Group/GroupTodoListBox";
+import CalendarDemo from "@/app/components/CalednarDemo";
+import GroupTeamUserList from "@/app/components/@Group/GroupTeamUserList";
 
 function Main() {
   const [selectedDate, setSelectedDate] = useState(new Date());

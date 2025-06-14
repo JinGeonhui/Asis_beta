@@ -1,5 +1,5 @@
 import React from "react";
-import { GroupCreate } from "@/app/components/Group/GroupCreate";
+import { GroupCreate } from "@/app/containers/Group";
 
 const GroupCreatePage = () => {
   return <GroupCreate />;

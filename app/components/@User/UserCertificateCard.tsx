@@ -37,7 +37,7 @@ function UserCertificateCard() {
   };
 
   return (
-    <div className="w-[95%] bg-white mt-5 rounded-xl p-6 flex flex-col justify-between min-h-[200px] shadow-md font-[pretendard] gap-[1rem]">
+    <div className="w-[95%] bg-white mt-5 rounded-xl p-6 flex flex-col justify-between min-h-[300px] shadow-md font-[pretendard] gap-[1rem]">
       <div className="flex justify-between items-center">
         <p className="font-bold text-2xl">보유 자격증</p>
         <Dialog>

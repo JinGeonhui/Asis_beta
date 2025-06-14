@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Temporal } from "@js-temporal/polyfill";
 
-function DashbordHeader() {
+export function DashbordHeader() {
   const [currentTime, setCurrentTime] = useState(Temporal.Now.plainTimeISO());
 
   useEffect(() => {
@@ -51,5 +51,3 @@ function DashbordHeader() {
     </div>
   );
 }
-
-export default DashbordHeader;

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import useUserStore from "../store/userStore";
+import useUserStore from "../../store/userStore";
 
 function UserCard() {
   const { user } = useUserStore();

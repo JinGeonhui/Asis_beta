@@ -3,14 +3,14 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import SettingPage from "../templates/SettingPage";
-import { IconInput } from "../IconInput";
-import { IconTextBox } from "../../components/IconTextBox";
-import { ChoosedBox } from "../../components/ChoosedBox";
-import { TdlBox } from "../TdlBox";
-import useUserStore from "@/app/store/userStore";
+import SettingPage from "@/app/containers/templates/SettingPage";
+import { useUserStore } from "@/app/store/userStore";
+import { IconInput } from "@/app/components";
+import { IconTextBox } from "@/app/components";
+import { ChoosedBox } from "@/app/components";
+import { TdlBox } from "@/app/components";
 
-export function GroupCreate() {
+export default function GroupCreate() {
   const [userId, setUserId] = useState("");
   const [friendData, setFriendData] = useState<
     { friend: string; email: string; userCode: string }[]

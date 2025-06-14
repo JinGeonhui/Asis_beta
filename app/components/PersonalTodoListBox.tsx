@@ -48,7 +48,7 @@ function getDayName(date: Date) {
   return days[date.getDay()];
 }
 
-function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
+export function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
   const [todolist, setTodolist] = useState<TodoList[]>([]);
   const [filteredList, setFilteredList] = useState<TodoList[]>([]);
   const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -234,5 +234,3 @@ function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
     </>
   );
 }
-
-export default PersonalTodoListBox;

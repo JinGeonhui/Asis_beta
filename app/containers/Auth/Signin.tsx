@@ -5,7 +5,7 @@ import Logo from "@/app/components/Logo";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import useUserStore from "../store/userStore";
+import useUserStore from "@/app/store/userStore";
 
 function Signin() {
   const [showPassword, setShowPassword] = useState(false);

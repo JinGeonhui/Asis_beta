@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Main from "@/app/pages/Main";
+import Main from "@/app/containers/Group/Main";
 
 const GroupMainPage = () => {
   return <Main />;

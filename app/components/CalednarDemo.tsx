@@ -8,7 +8,7 @@ interface Props {
   onSelectDate: (date: Date) => void;
 }
 
-function CalendarDemo({ selectedDate, onSelectDate }: Props) {
+export function CalendarDemo({ selectedDate, onSelectDate }: Props) {
   return (
     <div className="w-[93%] h-[19rem] bg-white flex justify-center items-center rounded-md border shadow">
       <Calendar
@@ -21,5 +21,3 @@ function CalendarDemo({ selectedDate, onSelectDate }: Props) {
     </div>
   );
 }
-
-export default CalendarDemo;

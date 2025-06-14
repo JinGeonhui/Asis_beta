@@ -1,5 +1,5 @@
 import React from "react";
-import { GroupEdit } from "@/app/components/Group/GroupEdit";
+import { GroupEdit } from "@/app/containers/Group";
 
 const GroupEditPage = () => {
   return <GroupEdit />;

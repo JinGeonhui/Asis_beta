@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import axios from "axios";
 
-function SideBar() {
+export function SideBar() {
   const router = useRouter();
   const pathname = usePathname();
   const menus = [

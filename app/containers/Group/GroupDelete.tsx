@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import SettingPage from "../templates/SettingPage";
-import { ClickStrokeBar } from "../ClickStrokeBar";
-import { DeleteMoadl, TodoList } from "../GroupModals";
+import SettingPage from "@/app/containers/templates/SettingPage";
+import { ClickStrokeBar } from "@/app/components";
+import { DeleteMoadl, TodoList } from "@/app/components/@Group/GroupModals";
 
-export function GroupDelete() {
+export default function GroupDelete() {
   const [tdls, setTdls] = useState<TodoList[]>([]);
   const [selectedTdl, setSelectedTdl] = useState<TodoList | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
