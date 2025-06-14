@@ -3,11 +3,11 @@ import { NextResponse, type NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isExclude = 
+  const isExclude =
     pathname.startsWith("/Signin") ||
     pathname.startsWith("/Signup") ||
     pathname.startsWith("/_next") ||
-    pathname.startsWith('/icon/') ||
+    pathname.startsWith("/icon/") ||
     pathname.startsWith("/api") ||
     pathname === "/favicon.ico";
 
