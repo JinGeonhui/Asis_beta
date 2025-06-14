@@ -6,13 +6,21 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 
 // FriendCard 컴포넌트
-function FriendCard({ name, code, type }: { name: string; code: string; type: "friend" | "sent" | "received" }) {
+function FriendCard({
+  name,
+  code,
+  type,
+}: {
+  name: string;
+  code: string;
+  type: "friend" | "sent" | "received";
+}) {
   const bgColor =
     type === "friend"
       ? "bg-blue-100 text-blue-900"
       : type === "sent"
-      ? "bg-purple-100 text-purple-900"
-      : "bg-green-100 text-green-900";
+        ? "bg-purple-100 text-purple-900"
+        : "bg-green-100 text-green-900";
 
   return (
     <div
@@ -63,12 +71,16 @@ function UserFriendCard() {
             <Input
               placeholder="이름"
               value={newRequest.name}
-              onChange={(e) => setNewRequest({ ...newRequest, name: e.target.value })}
+              onChange={(e) =>
+                setNewRequest({ ...newRequest, name: e.target.value })
+              }
             />
             <Input
               placeholder="고유 ID"
               value={newRequest.code}
-              onChange={(e) => setNewRequest({ ...newRequest, code: e.target.value })}
+              onChange={(e) =>
+                setNewRequest({ ...newRequest, code: e.target.value })
+              }
             />
             <Button onClick={handleSendRequest}>추가</Button>
           </DialogContent>
