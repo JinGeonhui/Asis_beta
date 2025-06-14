@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Logo } from "@/app/components";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { ICON } from "@/app/constants";
+import { ICON } from "@/constants";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useUserStore } from "@/app/store/userStore";
 

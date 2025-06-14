@@ -1,5 +1,5 @@
 import React from "react";
-import { ICON } from "@/app/constants";
+import { ICON } from "@/constants";
 
 export function Logo() {
   return (
