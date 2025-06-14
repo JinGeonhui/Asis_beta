@@ -4,7 +4,7 @@ import UserCard from "@/app/components/@User/UserCard";
 import UserCertificateCard from "@/app/components/@User/UserCertificateCard";
 import UserFriendCard from "@/app/components/@User/FriendsBox";
 
-function Profile() {
+export default function Profile() {
   return (
     <div className="w-full h-screen flex flex-row">
       <div id="LeftSection" className="w-[20%] h-screen flex flex-col">
@@ -23,5 +23,3 @@ function Profile() {
     </div>
   );
 }
-
-export default Profile;

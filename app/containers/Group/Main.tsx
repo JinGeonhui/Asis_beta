@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import SideBar from "@/app/components/Sidebar";
 import GroupTodoListBox from "@/app/components/@Group/GroupTodoListBox";
-import CalendarDemo from "@/app/components/CalednarDemo";
+import { CalendarDemo } from "@/app/components";
 import GroupTeamUserList from "@/app/components/@Group/GroupTeamUserList";
 
 function Main() {

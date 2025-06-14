@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "@/app/components/Logo";
+import { Logo } from "@/app/components";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
