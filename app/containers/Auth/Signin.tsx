@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Logo } from "@/app/components";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { ICON } from "@/app/constants";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useUserStore } from "@/app/store/userStore";
 
@@ -180,7 +181,7 @@ function Signin() {
             className="w-[180px] h-[50px] bg-[#FEE500] rounded-md font-[pretendard] flex items-center pl-6 relative"
           >
             <img
-              src="Kakao.svg"
+              src={`${ICON.SVG_ICON}/Kakao.svg`}
               className="w-6 h-6 absolute left-6"
               alt="카카오"
             />
@@ -191,7 +192,7 @@ function Signin() {
             className="w-[180px] h-[50px] bg-[#03C75A] rounded-md font-[pretendard] text-white flex items-center pl-6 relative"
           >
             <img
-              src="Naver.svg"
+              src={`${ICON.SVG_ICON}/Naver.svg`}
               className="w-6 h-6 absolute left-6"
               alt="네이버"
             />
@@ -202,7 +203,7 @@ function Signin() {
             className="w-[180px] h-[50px] bg-white border rounded-md font-[pretendard] flex items-center pl-6 relative"
           >
             <img
-              src="Google.svg"
+              src={`${ICON.SVG_ICON}/Google.svg`}
               className="w-6 h-6 absolute left-6"
               alt="구글"
             />
