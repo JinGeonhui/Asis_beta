@@ -93,8 +93,14 @@ export function SideBar() {
         className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-[5%]"
         onClick={() => router.push("/")}
       >
-        <img src={`${ICON.SVG_ICON}/LogoIcon.svg`} className="w-[45px] h-[45px]" />
-        <img src={`${ICON.SVG_ICON}/LogoTextIcon.svg`} className="w-[61px] h-[61px]" />
+        <img
+          src={`${ICON.SVG_ICON}/LogoIcon.svg`}
+          className="w-[45px] h-[45px]"
+        />
+        <img
+          src={`${ICON.SVG_ICON}/LogoTextIcon.svg`}
+          className="w-[61px] h-[61px]"
+        />
       </div>
       <div className="w-full flex flex-col items-center gap-3">
         {menus.map((menu) => {
