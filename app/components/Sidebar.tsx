@@ -10,17 +10,17 @@ export function SideBar() {
   const menus = [
     {
       id: "user",
-      icon: "/homeNotIcon.svg",
+      icon: "/icon/svg/homeNotIcon.svg",
       label: "개인 대시보드",
     },
     {
       id: "users",
-      icon: "/userNotIcon.svg",
+      icon: "/icon/svg/userNotIcon.svg",
       label: "단체 대시보드",
     },
     {
       id: "profile",
-      icon: "/userNotIcon.svg",
+      icon: "/icon/svg/userNotIcon.svg",
       label: "프로필",
     },
   ];
@@ -92,8 +92,8 @@ export function SideBar() {
         className="w-[228px] h-[61px] flex flex-row gap-[10px] items-center p-[5%]"
         onClick={() => router.push("/")}
       >
-        <img src="/LogoIcon.svg" className="w-[45px] h-[45px]" />
-        <img src="/LogoTextIcon.svg" className="w-[61px] h-[61px]" />
+        <img src="/icon/svg/LogoIcon.svg" className="w-[45px] h-[45px]" />
+        <img src="/icon/svg/LogoTextIcon.svg" className="w-[61px] h-[61px]" />
       </div>
       <div className="w-full flex flex-col items-center gap-3">
         {menus.map((menu) => {
