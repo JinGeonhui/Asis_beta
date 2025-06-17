@@ -74,5 +74,4 @@ const handleLogout = () => {
   window.location.href = "/Signin";
 };
 
-
 export default UserCard;

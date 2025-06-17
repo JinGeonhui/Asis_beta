@@ -16,7 +16,6 @@ export function middleware(request: NextRequest) {
   }
 
   const token = request.cookies.get("access_token")?.value;
-  
 
   if (!token) {
     return NextResponse.redirect(new URL("/Signin", request.url));
