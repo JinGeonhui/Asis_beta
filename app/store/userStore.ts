@@ -1,20 +1,26 @@
+// store/userStore.ts
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-interface UserInfo {
-  id: number;
-  email: string;
+type UserInfo = {
   name: string;
+  email: string;
   userCode: string;
-}
+};
 
-interface UserStore {
+type UserStore = {
   user: UserInfo | null;
   setUser: (user: UserInfo) => void;
-  clearUser: () => void;
-}
+};
 
-export const useUserStore = create<UserStore>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  clearUser: () => set({ user: null }),
-}));
+export const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      user: null,
+      setUser: (user) => set({ user }),
+    }),
+    {
+      name: "user-storage",
+    }
+  )
+);

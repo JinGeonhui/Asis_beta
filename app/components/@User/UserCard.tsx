@@ -1,11 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/app/store/userStore";
+import axios from "axios";
 
 function UserCard() {
   const { user } = useUserStore();
+
+  useEffect(() => {
+    const TodoGreate = async () => {
+      if (!user) return;
+
+      try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private/month`, {
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+          },
+          withCredentials: true,  
+        });
+
+        console.log(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    TodoGreate();
+  }, [user]); // user를 의존성으로 추가
 
   if (!user) {
     return <div className="text-center mt-10">유저 정보를 불러오는 중...</div>;

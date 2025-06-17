@@ -3,14 +3,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { SettingPage } from "../templates/SettingPage";
-import { ClickStrokeBar } from "@/app/components";
-import { EditMoadl, TodoList } from "@/app/components/@Group/GroupModals";
+import SettingPage from "../templates/SettingPage";
+import { ClickStrokeBar } from "../ClickStrokeBar";
+import { DeleteMoadl, TodoList } from "../GroupModals";
 
-export default function GroupEdit() {
+export function GroupDelete() {
   const [tdls, setTdls] = useState<TodoList[]>([]);
   const [selectedTdl, setSelectedTdl] = useState<TodoList | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+
+  function ModalClick() {
+    setModalOpen(true);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,33 +47,29 @@ export default function GroupEdit() {
     fetchData();
   }, []);
 
-  function ModalClick() {
-    setModalOpen(true);
-  }
-
   return (
     <SettingPage>
       {modalOpen && selectedTdl && (
-        <EditMoadl onClose={() => setModalOpen(false)} tdl={selectedTdl} />
+        <DeleteMoadl onClose={() => setModalOpen(false)} tdl={selectedTdl} />
       )}
 
       <div className="w-full h-screen flex flex-col items-center">
         <div className="w-full flex-1 overflow-y-scroll overflow-x-hidden scrollbar-hide pb-[300px] flex flex-col items-center">
           <div className="w-[56%] relative top-[34%] font-[pretendard] flex flex-col items-start">
-            <p className="font-bold text-[30px]">수정할 TDL을 선택해주세요</p>
+            <p className="font-bold text-[30px]">제거할 TDL을 선택해주세요</p>
 
             <div className="w-full flex flex-col gap-[22px] relative top-[14%]">
               {tdls.length > 0 && (
                 <div className="flex flex-col gap-[14px] w-full">
-                  <p className="font-medium">수정할 TDL 목록</p>
+                  <p className="font-medium">제거할 TDL 목록</p>
                   <div className="flex flex-col gap-[13px]">
-                    {tdls.map((tdlItem) => (
+                    {tdls.map((tdlItem, index) => (
                       <ClickStrokeBar
-                        key={tdlItem.tdlID}
+                        key={index}
                         text={tdlItem.title}
-                        selected={selectedTdl?.tdlID === tdlItem.tdlID}
+                        selected={selectedTdl === tdlItem}
                         onClick={() => setSelectedTdl(tdlItem)}
-                        focusColor="#1570EF"
+                        focusColor="#D23B3B"
                       />
                     ))}
                   </div>
@@ -80,11 +80,10 @@ export default function GroupEdit() {
 
           <div className="w-[56%] flex flex-col items-end relative top-[50%]">
             <button
-              className="w-[100px] h-[41px] font-[pretendard] font-semibold text-[18px] bg-[#1570EF] text-white rounded-[8px]"
+              className="w-[100px] h-[41px] font-[pretendard] font-semibold text-[18px] bg-[#D23B3B] text-white rounded-[8px]"
               onClick={ModalClick}
-              disabled={!selectedTdl}
             >
-              수정하기
+              제거하기
             </button>
           </div>
         </div>

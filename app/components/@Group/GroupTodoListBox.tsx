@@ -131,6 +131,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "ngrok-skip-browser-warning": "69420",
           },
           params: { date: formattedDate },
+          withCredentials: true,
         },
       );
 
@@ -209,7 +210,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "ngrok-skip-browser-warning": "69420",
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         },
+
       );
       // 서버 push가 오면 setTodolist로 동기화 + 낙관적 상태 초기화
     } catch (err) {
@@ -263,6 +266,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "ngrok-skip-browser-warning": "69420",
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         },
       );
       alert("초대가 완료되었습니다!");

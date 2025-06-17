@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import SettingPage from "@/app/containers/templates/SettingPage";
+import { SettingPage } from "../templates/SettingPage";
 import { ClickStrokeBar } from "@/app/components";
 import { DeleteMoadl, TodoList } from "@/app/components/@Group/GroupModals";
 

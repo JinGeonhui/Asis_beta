@@ -6,7 +6,7 @@ export * from "./ClickBar";
 export * from "./ClickStrokeBar";
 export * from "./IconTextBox";
 export * from "./IconInput";
-export * from "./CalednarDemo";
+export * from "./CustomCalendar";
 export * from "./DashbordHeader";
 export * from "./PersonalTodoListBox";
 export * from "./PersonalModals";
