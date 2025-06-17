@@ -71,9 +71,7 @@ export function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
             },
           );
           setTodolist(res.data);
-        } 
-        
-        else {
+        } else {
           const formatted = formatDate(selectedDate);
           const res = await axios.get(
             `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private`,

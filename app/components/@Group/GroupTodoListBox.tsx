@@ -212,7 +212,6 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           },
           withCredentials: true,
         },
-
       );
       // 서버 push가 오면 setTodolist로 동기화 + 낙관적 상태 초기화
     } catch (err) {

@@ -13,12 +13,15 @@ function UserCard() {
       if (!user) return;
 
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private/month`, {
-          headers: {
-            "ngrok-skip-browser-warning": "69420",
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private/month`,
+          {
+            headers: {
+              "ngrok-skip-browser-warning": "69420",
+            },
+            withCredentials: true,
           },
-          withCredentials: true,  
-        });
+        );
 
         console.log(res.data);
       } catch (error) {
