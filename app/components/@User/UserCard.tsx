@@ -30,7 +30,7 @@ function UserCard() {
     };
 
     TodoGreate();
-  }, [user]); // user를 의존성으로 추가
+  }, [user]);
 
   if (!user) {
     return <div className="text-center mt-10">유저 정보를 불러오는 중...</div>;
@@ -56,10 +56,23 @@ function UserCard() {
 
       <div className="flex justify-end gap-3 pt-4">
         <Button>비밀번호 변경</Button>
-        <Button>로그아웃</Button>
+        <Button onClick={handleLogout}>로그아웃</Button>
       </div>
     </div>
   );
 }
+
+function deleteCookie(name: string) {
+  document.cookie = `${name}=; Max-Age=0; path=/;`;
+}
+
+const handleLogout = () => {
+  deleteCookie("access_token");
+  deleteCookie("refresh_token");
+
+  // 추가로 상태 초기화 또는 라우팅 처리 (선택)
+  window.location.href = "/Signin";
+};
+
 
 export default UserCard;
