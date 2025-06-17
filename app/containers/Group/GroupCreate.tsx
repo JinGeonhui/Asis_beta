@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { SettingPage } from "../templates/SettingPage";
 import { useUserStore } from "@/app/store/userStore";
 import { IconInput, IconTextBox, ChoosedBox, TdlBox } from "@/app/components";
+import { ICON } from "@/constants";
 
 export default function GroupCreate() {
   const [userId, setUserId] = useState("");
@@ -119,7 +120,7 @@ export default function GroupCreate() {
               <div className="flex flex-col gap-[14px] w-full">
                 <p className="font-medium">검색</p>
                 <IconInput
-                  iconSrc="/Search.svg"
+                  iconSrc={`${ICON.SVG_ICON}/Search.svg`}
                   iconPosition="right"
                   placeholder="초대할 사람의 이름을 적고, Enter 키를 눌러주세요"
                   value={userId}
@@ -143,7 +144,7 @@ export default function GroupCreate() {
                   ))
                 ) : (
                   <IconTextBox
-                    iconSrc="/Plus.svg"
+                    iconSrc={`${ICON.SVG_ICON}/Plus.svg`}
                     iconPosition="right"
                     text="검색된 유저가 없습니다."
                     iconAsButton={true}
@@ -158,7 +159,7 @@ export default function GroupCreate() {
                     {selectedFriends.map((friend, index) => (
                       <ChoosedBox
                         key={`${friend.email}-${index}`}
-                        iconSrc="/BlueX.svg"
+                        iconSrc={`${ICON.SVG_ICON}/BlueX.svg`}
                         iconPosition="right"
                         text={friend.friend}
                         iconAsButton={true}
@@ -195,7 +196,7 @@ export default function GroupCreate() {
                   {tdls.map((tdlItem, index) => (
                     <TdlBox
                       key={index}
-                      iconSrc="/GrayX.svg"
+                      iconSrc={`${ICON.SVG_ICON}/GrayX.svg`}
                       iconPosition="right"
                       text={tdlItem}
                       iconAsButton={true}
