@@ -3,10 +3,23 @@
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/app/store/userStore";
+import { usePasswordModalStore } from "@/app/store/usePassword";
 import axios from "axios";
+
+function deleteCookie(name: string) {
+  document.cookie = `${name}=; Max-Age=0; path=/;`;
+}
+
+const handleLogout = () => {
+  deleteCookie("access_token");
+  deleteCookie("refresh_token");
+  window.localStorage.clear();
+  window.location.href = "/Signin";
+};
 
 function UserCard() {
   const { user } = useUserStore();
+  const { openModal } = usePasswordModalStore();
 
   useEffect(() => {
     const TodoGreate = async () => {
@@ -20,7 +33,7 @@ function UserCard() {
               "ngrok-skip-browser-warning": "69420",
             },
             withCredentials: true,
-          },
+          }
         );
 
         console.log(res.data);
@@ -42,9 +55,7 @@ function UserCard() {
         <div className="flex flex-col gap-1.5">
           <p className="font-bold text-2xl">{user.name}</p>
           <p className="font-medium text-sm text-gray-400">{user.email}</p>
-          <p className="font-medium text-sm text-gray-400">
-            ID: {user.userCode}
-          </p>
+          <p className="font-medium text-sm text-gray-400">ID: {user.userCode}</p>
           <p className="font-regular text-sm text-[#1570EF]">프로필 공개</p>
         </div>
 
@@ -55,23 +66,11 @@ function UserCard() {
       </div>
 
       <div className="flex justify-end gap-3 pt-4">
-        <Button>비밀번호 변경</Button>
+        <Button onClick={openModal}>비밀번호 변경</Button>
         <Button onClick={handleLogout}>로그아웃</Button>
       </div>
     </div>
   );
 }
-
-function deleteCookie(name: string) {
-  document.cookie = `${name}=; Max-Age=0; path=/;`;
-}
-
-const handleLogout = () => {
-  deleteCookie("access_token");
-  deleteCookie("refresh_token");
-
-  // 추가로 상태 초기화 또는 라우팅 처리 (선택)
-  window.location.href = "/Signin";
-};
 
 export default UserCard;

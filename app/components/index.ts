@@ -13,3 +13,4 @@ export * from "./PersonalModals";
 export * from "./InsertModal";
 export * from "./InviteModal";
 export * from "./DateModal";
+export * from "./PasswordModal"

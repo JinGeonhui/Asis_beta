@@ -1,4 +1,5 @@
 import React from "react";
+import { ICON } from "@/constants";
 
 interface IconTextBoxProps {
   iconSrc?: string; //아이콘 Src값
@@ -40,7 +41,7 @@ export function ChoosedBox({
             className={`absolute top-1/2 ${iconPositionStyle} -translate-y-1/2`}
           >
             <img
-              src={"/BlueX.svg"}
+              src={`${ICON.SVG_ICON}/BlueX.svg`}
               alt={iconAlt}
               className={`w-[${iconSize}px] h-[${iconSize}px]`}
             />

@@ -1,31 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import axios from "axios";
+import { useUserStore } from "@/app/store/userStore";
 
-// FriendCard 컴포넌트
-function FriendCard({
-  name,
-  code,
-  type,
-}: {
-  name: string;
-  code: string;
-  type: "friend" | "sent" | "received";
-}) {
+function FriendCard({ name, code, type }: { name: string; code: string; type: "friend" | "sent" | "received" }) {
   const bgColor =
     type === "friend"
       ? "bg-blue-100 text-blue-900"
       : type === "sent"
-        ? "bg-purple-100 text-purple-900"
-        : "bg-green-100 text-green-900";
+      ? "bg-purple-100 text-purple-900"
+      : "bg-green-100 text-green-900";
 
   return (
-    <div
-      className={`min-w-[17rem] h-[9rem] rounded-md flex flex-col justify-between p-4 flex-shrink-0 shadow-lg ${bgColor}`}
-    >
+    <div className={`min-w-[17rem] h-[9rem] rounded-md flex flex-col justify-between p-4 flex-shrink-0 shadow-lg ${bgColor}`}>
       <div className="text-xl font-bold">{name}</div>
       <div className="text-sm">
         <p>ID: {code}</p>
@@ -34,29 +25,65 @@ function FriendCard({
   );
 }
 
-// 전체 사용자 친구 카드
 function UserFriendCard() {
-  const [friends, setFriends] = useState([
-    { name: "친구1", code: "id001" },
-    { name: "친구2", code: "id002" },
-  ]);
+  const [friends, setFriends] = useState<any[]>([]);
+  const [sentRequests, setSentRequests] = useState<any[]>([]);
+  const [receivedRequests, setReceivedRequests] = useState<any[]>([]);
+  const [newCode, setNewCode] = useState("");
+  const { user } = useUserStore();
 
-  const [sentRequests, setSentRequests] = useState([
-    { name: "보낸요청1", code: "id101" },
-  ]);
-
-  const [receivedRequests, setReceivedRequests] = useState([
-    { name: "받은요청1", code: "id201" },
-  ]);
-
-  const [newRequest, setNewRequest] = useState({ name: "", code: "" });
-
-  const handleSendRequest = () => {
-    if (newRequest.name && newRequest.code) {
-      setSentRequests((prev) => [...prev, newRequest]);
-      setNewRequest({ name: "", code: "" });
+  const fetchFriends = async () => {
+    try {
+      const res = await axios.get("/friends", { withCredentials: true });
+      setFriends(res.data);
+    } catch (err) {
+      console.error("친구 목록 조회 실패:", err);
     }
   };
+
+  const fetchSentRequests = async () => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requested/${user?.userCode}`, { withCredentials: true });
+      const sent = res.data.filter((req: any) => req.status === "PENDING");
+      setSentRequests(sent);
+    } catch (err) {
+      console.error("보낸 요청 조회 실패:", err);
+    }
+  };
+
+  const fetchReceivedRequests = async () => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requests`, { withCredentials: true });
+      const received = res.data.filter((req: any) => req.status === "PENDING");
+      setReceivedRequests(received);
+    } catch (err) {
+      console.error("받은 요청 조회 실패:", err);
+    }
+  };
+
+  const handleSendRequest = async () => {
+    if (!newCode) return;
+    try {
+      await axios.post(
+        "/friends/request",
+        { userCode: newCode },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      await fetchSentRequests();
+      setNewCode("");
+    } catch (err) {
+      console.error("친구 요청 실패:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchFriends();
+    fetchSentRequests();
+    fetchReceivedRequests();
+  }, []);
 
   return (
     <div className="w-[95%] bg-white mt-5 rounded-xl p-6 flex flex-col gap-6 shadow-md font-[pretendard] mb-8">
@@ -69,50 +96,38 @@ function UserFriendCard() {
           <DialogContent className="flex flex-col gap-4">
             <p className="font-semibold text-lg">친구 추가</p>
             <Input
-              placeholder="이름"
-              value={newRequest.name}
-              onChange={(e) =>
-                setNewRequest({ ...newRequest, name: e.target.value })
-              }
-            />
-            <Input
-              placeholder="고유 ID"
-              value={newRequest.code}
-              onChange={(e) =>
-                setNewRequest({ ...newRequest, code: e.target.value })
-              }
+              placeholder="상대 고유 ID"
+              value={newCode}
+              onChange={(e) => setNewCode(e.target.value)}
             />
             <Button onClick={handleSendRequest}>추가</Button>
           </DialogContent>
         </Dialog>
       </div>
 
-      {/* 친구 목록 */}
       <div>
         <p className="text-lg font-semibold mb-2">친구</p>
         <div className="flex gap-4 overflow-x-auto scrollbar-hide">
           {friends.map((f, i) => (
-            <FriendCard key={i} name={f.name} code={f.code} type="friend" />
+            <FriendCard key={i} name={f.name} code={f.userCode} type="friend" />
           ))}
         </div>
       </div>
 
-      {/* 보낸 요청 */}
       <div>
         <p className="text-lg font-semibold mb-2">보낸 친구 요청</p>
         <div className="flex gap-4 overflow-x-auto scrollbar-hide">
           {sentRequests.map((f, i) => (
-            <FriendCard key={i} name={f.name} code={f.code} type="sent" />
+            <FriendCard key={i} name={f.name} code={f.userCode} type="sent" />
           ))}
         </div>
       </div>
 
-      {/* 받은 요청 */}
       <div>
         <p className="text-lg font-semibold mb-2">받은 친구 요청</p>
         <div className="flex gap-4 overflow-x-auto scrollbar-hide">
           {receivedRequests.map((f, i) => (
-            <FriendCard key={i} name={f.name} code={f.code} type="received" />
+            <FriendCard key={i} name={f.name} code={f.userCode} type="received" />
           ))}
         </div>
       </div>
