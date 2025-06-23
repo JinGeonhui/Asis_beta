@@ -41,13 +41,25 @@ function formatDate(date: Date) {
 }
 
 function getDayName(date: Date) {
-  const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+  const days = [
+    "일요일",
+    "월요일",
+    "화요일",
+    "수요일",
+    "목요일",
+    "금요일",
+    "토요일",
+  ];
   return days[date.getDay()];
 }
 
 function isToday(date: Date) {
   const now = new Date();
-  return now.getFullYear() === date.getFullYear() && now.getMonth() === date.getMonth() && now.getDate() === date.getDate();
+  return (
+    now.getFullYear() === date.getFullYear() &&
+    now.getMonth() === date.getMonth() &&
+    now.getDate() === date.getDate()
+  );
 }
 
 function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
@@ -59,7 +71,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [groupNumber, setGroupNumber] = useState<number | null>(null);
   const [ownerName, setOwnerName] = useState<string>("");
-  const [optimisticMap, setOptimisticMap] = useState<Record<number, OptimisticState>>({});
+  const [optimisticMap, setOptimisticMap] = useState<
+    Record<number, OptimisticState>
+  >({});
   const [isReadOnly, setIsReadOnly] = useState(false);
   const router = useRouter();
 
@@ -72,10 +86,13 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const fetchTodolist = async () => {
     if (isToday(selectedDate)) {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`, {
-          headers: { "ngrok-skip-browser-warning": "69420" },
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`,
+          {
+            headers: { "ngrok-skip-browser-warning": "69420" },
+            withCredentials: true,
+          },
+        );
         const ownerCode = response.data.ownerCode;
         setOwnerName(response.data.ownerName);
         const sups = response.data.getSups || [];
@@ -100,11 +117,14 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
     try {
       const formattedDate = formatDate(selectedDate);
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/group`, {
-        headers: { "ngrok-skip-browser-warning": "69420" },
-        params: { date: formattedDate },
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/group`,
+        {
+          headers: { "ngrok-skip-browser-warning": "69420" },
+          params: { date: formattedDate },
+          withCredentials: true,
+        },
+      );
       setOwnerName("");
       const tdlArr = (response.data.tdl || []).map((item: any) => ({
         title: item.title,
@@ -167,7 +187,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     setOptimisticMap((prev) => {
       const optimistic = prev[item.tdlID];
       let newCompleted = optimistic ? !optimistic.completed : !item.completed;
-      let newPart = optimistic ? optimistic.part : item.part ?? 0;
+      let newPart = optimistic ? optimistic.part : (item.part ?? 0);
       if (!optimistic) {
         newPart = !item.completed ? newPart + 1 : newPart - 1;
       } else {
@@ -194,7 +214,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
     } catch (err) {
       setOptimisticMap((prev) => {
@@ -211,12 +231,15 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     return opt ? { ...tdl, completed: opt.completed, part: opt.part } : tdl;
   });
 
-  const grouped = visibleList.reduce((acc, tdl) => {
-    const cat = tdl.category || "기타";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(tdl);
-    return acc;
-  }, {} as Record<string, TodoList[]>);
+  const grouped = visibleList.reduce(
+    (acc, tdl) => {
+      const cat = tdl.category || "기타";
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(tdl);
+      return acc;
+    },
+    {} as Record<string, TodoList[]>,
+  );
 
   const handleInvite = async (userCodes: string[]) => {
     if (!groupNumber) {
@@ -224,16 +247,20 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
       return;
     }
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`, {
-        groupID: groupNumber,
-        receivers: userCodes,
-      }, {
-        headers: {
-          "ngrok-skip-browser-warning": "69420",
-          "Content-Type": "application/json",
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`,
+        {
+          groupID: groupNumber,
+          receivers: userCodes,
         },
-        withCredentials: true,
-      });
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        },
+      );
       alert("초대가 완료되었습니다!");
     } catch (error) {
       alert("초대 실패");
@@ -245,17 +272,42 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
   return (
     <>
-      {inviteModalOpen && <InviteModal onClose={() => setInviteModalOpen(false)} onInvite={handleInvite} myEmail={typeof window !== "undefined" ? window.localStorage.getItem("email") || "" : ""} />}
-      {insertModalOpen && <GroupInsertModal onClose={() => setInsertModalOpen(false)} />}
-      {editModalOpen && selectedTdl && <EditMoadl onClose={() => setEditModalOpen(false)} tdl={selectedTdl} />}
-      {deleteModalOpen && selectedTdl && <DeleteMoadl onClose={() => setDeleteModalOpen(false)} tdl={selectedTdl} />}
+      {inviteModalOpen && (
+        <InviteModal
+          onClose={() => setInviteModalOpen(false)}
+          onInvite={handleInvite}
+          myEmail={
+            typeof window !== "undefined"
+              ? window.localStorage.getItem("email") || ""
+              : ""
+          }
+        />
+      )}
+      {insertModalOpen && (
+        <GroupInsertModal onClose={() => setInsertModalOpen(false)} />
+      )}
+      {editModalOpen && selectedTdl && (
+        <EditMoadl onClose={() => setEditModalOpen(false)} tdl={selectedTdl} />
+      )}
+      {deleteModalOpen && selectedTdl && (
+        <DeleteMoadl
+          onClose={() => setDeleteModalOpen(false)}
+          tdl={selectedTdl}
+        />
+      )}
       <div className="w-[70%] h-[100%] bg-white rounded-lg flex flex-col items-center border shadow relative overflow-hidden">
         <div className="w-[94%] relative flex flex-row justify-between mt-[1rem]">
           <div className="flex flex-row gap-[0.37rem]">
-            <p className="font-[pretendard] text-[1.875rem] font-bold">{formatDate(selectedDate)}</p>
-            <p className="font-[pretendard] text-[0.9375rem] font-bold text-[#DBDEE3] mt-[0.8rem]">{getDayName(selectedDate)}</p>
+            <p className="font-[pretendard] text-[1.875rem] font-bold">
+              {formatDate(selectedDate)}
+            </p>
+            <p className="font-[pretendard] text-[0.9375rem] font-bold text-[#DBDEE3] mt-[0.8rem]">
+              {getDayName(selectedDate)}
+            </p>
           </div>
-          <p className="font-[pretendard] text-[1.875rem] font-bold">{visibleList.filter((t) => t.completed).length}/{visibleList.length}</p>
+          <p className="font-[pretendard] text-[1.875rem] font-bold">
+            {visibleList.filter((t) => t.completed).length}/{visibleList.length}
+          </p>
         </div>
         <div className="w-[90%] h-[38.5rem] mt-[1.2rem] flex flex-col gap-[0.8rem] overflow-x-hidden scrollbar-hide overflow-y-scroll">
           {Object.keys(grouped).length === 0 ? (
@@ -285,7 +337,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           <div className="w-[94%] flex flex-row justify-end absolute bottom-4 gap-[1rem]">
             <Button onClick={() => setInsertModalOpen(true)}>추가하기</Button>
             <Button onClick={() => router.push("/Group/Edit")}>수정하기</Button>
-            <Button onClick={() => router.push("/Group/Delete")}>삭제하기</Button>
+            <Button onClick={() => router.push("/Group/Delete")}>
+              삭제하기
+            </Button>
             <Button onClick={() => setInviteModalOpen(true)}>초대하기</Button>
           </div>
         )}

@@ -39,7 +39,7 @@ export function PasswordChangeModal() {
             "Content-Type": "application/json",
             "ngrok-skip-browser-warning": "69420",
           },
-        }
+        },
       );
 
       if (response.status === 200) {

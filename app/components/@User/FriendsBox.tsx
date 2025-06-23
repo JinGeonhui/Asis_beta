@@ -7,16 +7,26 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useUserStore } from "@/app/store/userStore";
 
-function FriendCard({ name, code, type }: { name: string; code: string; type: "friend" | "sent" | "received" }) {
+function FriendCard({
+  name,
+  code,
+  type,
+}: {
+  name: string;
+  code: string;
+  type: "friend" | "sent" | "received";
+}) {
   const bgColor =
     type === "friend"
       ? "bg-blue-100 text-blue-900"
       : type === "sent"
-      ? "bg-purple-100 text-purple-900"
-      : "bg-green-100 text-green-900";
+        ? "bg-purple-100 text-purple-900"
+        : "bg-green-100 text-green-900";
 
   return (
-    <div className={`min-w-[17rem] h-[9rem] rounded-md flex flex-col justify-between p-4 flex-shrink-0 shadow-lg ${bgColor}`}>
+    <div
+      className={`min-w-[17rem] h-[9rem] rounded-md flex flex-col justify-between p-4 flex-shrink-0 shadow-lg ${bgColor}`}
+    >
       <div className="text-xl font-bold">{name}</div>
       <div className="text-sm">
         <p>ID: {code}</p>
@@ -43,7 +53,10 @@ function UserFriendCard() {
 
   const fetchSentRequests = async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requested/${user?.userCode}`, { withCredentials: true });
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requested/${user?.userCode}`,
+        { withCredentials: true },
+      );
       const sent = res.data.filter((req: any) => req.status === "PENDING");
       setSentRequests(sent);
     } catch (err) {
@@ -53,7 +66,10 @@ function UserFriendCard() {
 
   const fetchReceivedRequests = async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requests`, { withCredentials: true });
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requests`,
+        { withCredentials: true },
+      );
       const received = res.data.filter((req: any) => req.status === "PENDING");
       setReceivedRequests(received);
     } catch (err) {
@@ -70,7 +86,7 @@ function UserFriendCard() {
         {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
       await fetchSentRequests();
       setNewCode("");
@@ -127,7 +143,12 @@ function UserFriendCard() {
         <p className="text-lg font-semibold mb-2">받은 친구 요청</p>
         <div className="flex gap-4 overflow-x-auto scrollbar-hide">
           {receivedRequests.map((f, i) => (
-            <FriendCard key={i} name={f.name} code={f.userCode} type="received" />
+            <FriendCard
+              key={i}
+              name={f.name}
+              code={f.userCode}
+              type="received"
+            />
           ))}
         </div>
       </div>

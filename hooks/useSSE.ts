@@ -7,7 +7,12 @@ interface SSEOptions {
   onError?: (err: Event) => void;
 }
 
-export function useSSE({ url, onMessage, event = "message", onError }: SSEOptions) {
+export function useSSE({
+  url,
+  onMessage,
+  event = "message",
+  onError,
+}: SSEOptions) {
   const eventSourceRef = useRef<EventSource | null>(null);
 
   const disconnect = useCallback(() => {

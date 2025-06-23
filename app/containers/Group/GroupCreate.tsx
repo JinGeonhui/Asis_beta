@@ -30,7 +30,7 @@ export default function GroupCreate() {
 
       const src = new EventSource(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/sse/group-invite?userCode=${user.userCode}`,
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       src.addEventListener("friendList", (e: MessageEvent) => {
@@ -68,7 +68,7 @@ export default function GroupCreate() {
         await axios.post(
           `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/find`,
           dto,
-          { withCredentials: true }
+          { withCredentials: true },
         );
       } catch (error) {
         console.error("친구 검색 트리거 실패", error);
@@ -110,7 +110,7 @@ export default function GroupCreate() {
         {
           headers: { "ngrok-skip-browser-warning": "69420" },
           withCredentials: true,
-        }
+        },
       );
       if (res.status === 200) router.push("/");
     } catch (error) {
@@ -136,7 +136,9 @@ export default function GroupCreate() {
         <div className="w-full h-screen flex flex-col items-center">
           <div className="w-full flex-1 overflow-y-scroll overflow-x-hidden scrollbar-hide pb-[300px] flex flex-col items-center">
             <div className="w-[703px] mt-32 font-[pretendard] flex flex-col items-start">
-              <p className="font-bold text-[30px]">단체 TDL을 함께할 친구를 초대해주세요</p>
+              <p className="font-bold text-[30px]">
+                단체 TDL을 함께할 친구를 초대해주세요
+              </p>
               <div className="w-full flex flex-col gap-[22px] mt-8">
                 <div className="flex flex-col gap-[14px] w-full">
                   <p className="font-medium">검색</p>
@@ -199,9 +201,13 @@ export default function GroupCreate() {
             </div>
 
             <div className="w-[703px] mt-20 font-[pretendard] flex flex-col items-start gap-[14px]">
-              <p className="font-bold text-[30px]">단체 TDL의 목표 TDL을 작성해주세요</p>
+              <p className="font-bold text-[30px]">
+                단체 TDL의 목표 TDL을 작성해주세요
+              </p>
               <div className="w-full flex flex-col gap-[13px]">
-                <p className="font-medium">추가할 TDL을 작성하고 Enter키를 눌러주세요</p>
+                <p className="font-medium">
+                  추가할 TDL을 작성하고 Enter키를 눌러주세요
+                </p>
                 <input
                   className="w-full h-[56px] pl-4 py-2 rounded-[8px] focus:outline-none focus:ring-1 focus:ring-[#1570EF] bg-[#F2F4F7] placeholder:color-[#95979D]"
                   placeholder="TDL을 적어주세요"
@@ -221,7 +227,9 @@ export default function GroupCreate() {
                         iconPosition="right"
                         text={tdlItem}
                         iconAsButton={true}
-                        onIconClick={() => setTdls((prev) => prev.filter((_, i) => i !== index))}
+                        onIconClick={() =>
+                          setTdls((prev) => prev.filter((_, i) => i !== index))
+                        }
                       />
                     ))}
                   </div>
