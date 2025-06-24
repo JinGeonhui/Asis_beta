@@ -44,11 +44,9 @@ function UserFriendCard() {
 
   const postInitialFriendRequest = async () => {
     try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`,
-        {},
-        { withCredentials: true },
-      );
+      await axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`, 
+        {}, 
+        { withCredentials: true });
     } catch (err) {
       console.error("초기 친구 요청 실패:", err);
     }
@@ -58,7 +56,11 @@ function UserFriendCard() {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`,
-        { withCredentials: true },
+        { withCredentials: true,
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+          }
+         }
       );
       setFriends(res.data);
     } catch (err) {
@@ -70,7 +72,11 @@ function UserFriendCard() {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requested/${user?.userCode}`,
-        { withCredentials: true },
+        { withCredentials: true,
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+          }
+         },
       );
       const sent = res.data.filter((req: any) => req.status === "PENDING");
       setSentRequests(sent);
@@ -83,7 +89,9 @@ function UserFriendCard() {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requests`,
-        { withCredentials: true },
+        { withCredentials: true, headers:{
+          "ngrok-skip-browser-warning": "69420",
+        } },
       );
       const received = res.data.filter((req: any) => req.status === "PENDING");
       setReceivedRequests(received);
