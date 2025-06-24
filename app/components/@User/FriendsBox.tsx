@@ -52,7 +52,10 @@ function UserFriendCard() {
 
   const fetchFriends = async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`, { withCredentials: true });
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`,
+        { withCredentials: true },
+      );
       setFriends(res.data);
     } catch (err) {
       console.error("친구 목록 조회 실패:", err);
