@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import axios from "axios";
 import { useUserStore } from "@/app/store/userStore";
+import axios from "axios";
 
 function FriendCard({
   name,
@@ -42,9 +42,17 @@ function UserFriendCard() {
   const [newCode, setNewCode] = useState("");
   const { user } = useUserStore();
 
+  const postInitialFriendRequest = async () => {
+    try {
+      await axios.post("/friends", {}, { withCredentials: true });
+    } catch (err) {
+      console.error("초기 친구 요청 실패:", err);
+    }
+  };
+
   const fetchFriends = async () => {
     try {
-      const res = await axios.get("/friends", { withCredentials: true });
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`, { withCredentials: true });
       setFriends(res.data);
     } catch (err) {
       console.error("친구 목록 조회 실패:", err);
@@ -96,6 +104,7 @@ function UserFriendCard() {
   };
 
   useEffect(() => {
+    postInitialFriendRequest();
     fetchFriends();
     fetchSentRequests();
     fetchReceivedRequests();
@@ -145,8 +154,8 @@ function UserFriendCard() {
           {receivedRequests.map((f, i) => (
             <FriendCard
               key={i}
-              name={f.name}
-              code={f.userCode}
+              name={f.senderName}
+              code={f.senderUserCode}
               type="received"
             />
           ))}
