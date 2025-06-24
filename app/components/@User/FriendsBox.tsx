@@ -44,7 +44,11 @@ function UserFriendCard() {
 
   const postInitialFriendRequest = async () => {
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`, {}, { withCredentials: true });
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`,
+        {},
+        { withCredentials: true },
+      );
     } catch (err) {
       console.error("초기 친구 요청 실패:", err);
     }
