@@ -261,14 +261,8 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     <>
       {inviteModalOpen && (
         <InviteModal
-          userCode={`${user?.email}`}
           onClose={() => setInviteModalOpen(false)}
           onInvite={handleInvite}
-          myEmail={
-            typeof window !== "undefined"
-              ? window.localStorage.getItem("email") || ""
-              : ""
-          }
         />
       )}
       {insertModalOpen && (

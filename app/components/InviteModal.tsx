@@ -6,33 +6,24 @@ import { useUserStore } from "../store/userStore";
 
 interface InviteModalProps {
   onClose: () => void;
-  onInvite: (friendCodes: string[]) => void;
-  myEmail: string | null | undefined;
-  userCode: string;
-  groupNumber: number;
+  onInvite: (userCodes: string[]) => Promise<void>;
 }
 
 interface UserSearchResult {
-  userCode: string; // API 응답 필드는 userCode지만, 내부 변수명은 friendCode로 사용
+  userCode: string;
   name: string;
   email: string;
 }
 
-export function InviteModal({
-  onClose,
-  onInvite,
-  myEmail,
-  userCode,
-  groupNumber,
-}: InviteModalProps) {
+export function InviteModal({ onClose }: InviteModalProps) {
   const [friendName, setFriendName] = useState("");
   const [friendCodes, setFriendCodes] = useState<string[]>([]);
   const [searchResult, setSearchResult] = useState<UserSearchResult[]>([]);
   const [isSearchTriggered, setIsSearchTriggered] = useState(false);
 
   const { user } = useUserStore();
+  const groupNumber = user?.groupNumberId;
 
-  // 친구 검색
   const handleSearch = async () => {
     if (!friendName.trim()) {
       alert("친구 이름을 입력해주세요.");
@@ -63,42 +54,42 @@ export function InviteModal({
     }
   };
 
-  // 친구 선택
   const handleSelectFriend = (friendCode: string) => {
     setFriendCodes((prev) =>
       prev.includes(friendCode) ? prev : [...prev, friendCode],
     );
   };
 
-  // 초대하기
+  // 🔧 수정된 handleInvite 함수
   const handleInvite = async () => {
+    if (!groupNumber) {
+      alert("그룹 번호를 찾을 수 없습니다.");
+      return;
+    }
     if (friendCodes.length === 0) {
       alert("초대할 친구를 선택해주세요.");
       return;
     }
     try {
-      // 보낼 때는 userCode라는 key로 배열을 보냄
       await axios.post(
         `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`,
         {
-          groupNumber: user?.groupNumberId,
-          receivers: friendCodes, // 백엔드에서 receivers 배열의 각 값이 userCode임
+          groupID: groupNumber,
+          receivers: friendCodes,
         },
         {
           headers: {
-            "Content-Type": "application/json",
             "ngrok-skip-browser-warning": "69420",
+            "Content-Type": "application/json",
           },
           withCredentials: true,
-        },
+        }
       );
-      alert("초대가 완료되었습니다.");
-      onInvite(friendCodes);
+      alert("초대가 완료되었습니다!");
       onClose();
-      location.reload();
     } catch (error) {
-      console.error("초대 실패", error);
-      alert("초대 중 오류가 발생했습니다.");
+      alert("초대 실패");
+      console.error(error);
     }
   };
 
@@ -152,7 +143,7 @@ export function InviteModal({
           </button>
           <button
             className="bg-[#1570EF] text-white px-4 py-2 rounded"
-            onClick={handleInvite}
+            onClick={handleInvite} // 🔧 수정된 부분: 직접 실행함
           >
             초대하기
           </button>
