@@ -10,8 +10,9 @@ import { DeleteMoadl } from "./GroupModals";
 import { InviteModal } from "../InviteModal";
 import { useRouter } from "next/navigation";
 import { useSSE } from "@/hooks/useSSE";
+import { useUserStore } from "@/app/store/userStore";
 
-interface TodoList {
+export interface TodoList {
   title: string;
   category: string;
   completed?: boolean;
@@ -41,15 +42,7 @@ function formatDate(date: Date) {
 }
 
 function getDayName(date: Date) {
-  const days = [
-    "일요일",
-    "월요일",
-    "화요일",
-    "수요일",
-    "목요일",
-    "금요일",
-    "토요일",
-  ];
+  const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
   return days[date.getDay()];
 }
 
@@ -69,13 +62,12 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const [selectedTdl, setSelectedTdl] = useState<TodoList | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [groupNumber, setGroupNumber] = useState<number | null>(null);
   const [ownerName, setOwnerName] = useState<string>("");
-  const [optimisticMap, setOptimisticMap] = useState<
-    Record<number, OptimisticState>
-  >({});
+  const [optimisticMap, setOptimisticMap] = useState<Record<number, OptimisticState>>({});
   const [isReadOnly, setIsReadOnly] = useState(false);
   const router = useRouter();
+  const { user } = useUserStore();
+  const groupNumber = user?.groupNumberId ?? null;
 
   useEffect(() => {
     setIsReadOnly(!isToday(selectedDate));
@@ -84,6 +76,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const myName = "진건희";
 
   const fetchTodolist = async () => {
+    if (!groupNumber) return;
     if (isToday(selectedDate)) {
       try {
         const response = await axios.get(
@@ -91,7 +84,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           {
             headers: { "ngrok-skip-browser-warning": "69420" },
             withCredentials: true,
-          },
+          }
         );
         const ownerCode = response.data.ownerCode;
         setOwnerName(response.data.ownerName);
@@ -106,9 +99,8 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           part: item.part,
         }));
         setTodolist(mapped);
-        if (sups.length > 0) setGroupNumber(sups[0].groupNumber);
       } catch (error) {
-        console.error("에러(오른쪽)", error);
+        console.error("에러(오늘)", error);
         setTodolist([]);
         setOwnerName("");
       }
@@ -123,7 +115,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           headers: { "ngrok-skip-browser-warning": "69420" },
           params: { date: formattedDate },
           withCredentials: true,
-        },
+        }
       );
       setOwnerName("");
       const tdlArr = (response.data.tdl || []).map((item: any) => ({
@@ -136,9 +128,8 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
         part: item.part,
       }));
       setTodolist(tdlArr);
-      if (tdlArr.length > 0) setGroupNumber(tdlArr[0].groupNumber);
     } catch (error) {
-      console.error("에러(가족요일)", error);
+      console.error("에러(과거)", error);
       setTodolist([]);
       setOwnerName("");
     }
@@ -146,39 +137,29 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
   useEffect(() => {
     fetchTodolist();
-  }, [selectedDate]);
+  }, [selectedDate, groupNumber]);
 
-  // SSE listeners
   const baseSSEUrl = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/sse/group`;
 
   useSSE({
     url: `${baseSSEUrl}?groupNum=${groupNumber}`,
     event: "group",
-    onMessage: (data) => {
-      console.log("group 이벤트 수신:", data);
-      fetchTodolist();
-    },
-    onError: (err) => console.error("SSE group 오류:", err),
+    onMessage: () => fetchTodolist(),
+    onError: (err) => console.error("SSE 오류(group):", err),
   });
 
   useSSE({
     url: `${baseSSEUrl}?groupNum=${groupNumber}`,
     event: "group-detail",
-    onMessage: (data) => {
-      console.log("group-detail 이벤트 수신:", data);
-      fetchTodolist();
-    },
-    onError: (err) => console.error("SSE group-detail 오류:", err),
+    onMessage: () => fetchTodolist(),
+    onError: (err) => console.error("SSE 오류(group-detail):", err),
   });
 
   useSSE({
     url: `${baseSSEUrl}?groupNum=${groupNumber}`,
     event: "group-delete",
-    onMessage: (data) => {
-      console.log("group-delete 이벤트 수신:", data);
-      fetchTodolist();
-    },
-    onError: (err) => console.error("SSE group-delete 오류:", err),
+    onMessage: () => fetchTodolist(),
+    onError: (err) => console.error("SSE 오류(group-delete):", err),
   });
 
   const handleToggleTdl = async (item: TodoList) => {
@@ -188,11 +169,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
       const optimistic = prev[item.tdlID];
       let newCompleted = optimistic ? !optimistic.completed : !item.completed;
       let newPart = optimistic ? optimistic.part : (item.part ?? 0);
-      if (!optimistic) {
-        newPart = !item.completed ? newPart + 1 : newPart - 1;
-      } else {
-        newPart = newCompleted ? newPart + 1 : newPart - 1;
-      }
+      newPart = newCompleted ? newPart + 1 : newPart - 1;
       newPart = Math.max(0, Math.min(newPart, userCount));
       return {
         ...prev,
@@ -214,7 +191,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        },
+        }
       );
     } catch (err) {
       setOptimisticMap((prev) => {
@@ -231,15 +208,12 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     return opt ? { ...tdl, completed: opt.completed, part: opt.part } : tdl;
   });
 
-  const grouped = visibleList.reduce(
-    (acc, tdl) => {
-      const cat = tdl.category || "기타";
-      if (!acc[cat]) acc[cat] = [];
-      acc[cat].push(tdl);
-      return acc;
-    },
-    {} as Record<string, TodoList[]>,
-  );
+  const grouped = visibleList.reduce((acc, tdl) => {
+    const cat = tdl.category || "기타";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(tdl);
+    return acc;
+  }, {} as Record<string, TodoList[]>);
 
   const handleInvite = async (userCodes: string[]) => {
     if (!groupNumber) {
@@ -259,7 +233,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        },
+        }
       );
       alert("초대가 완료되었습니다!");
     } catch (error) {
@@ -274,6 +248,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     <>
       {inviteModalOpen && (
         <InviteModal
+          userCode={`${user?.email}`}
           onClose={() => setInviteModalOpen(false)}
           onInvite={handleInvite}
           myEmail={
@@ -337,9 +312,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           <div className="w-[94%] flex flex-row justify-end absolute bottom-4 gap-[1rem]">
             <Button onClick={() => setInsertModalOpen(true)}>추가하기</Button>
             <Button onClick={() => router.push("/Group/Edit")}>수정하기</Button>
-            <Button onClick={() => router.push("/Group/Delete")}>
-              삭제하기
-            </Button>
+            <Button onClick={() => router.push("/Group/Delete")}>삭제하기</Button>
             <Button onClick={() => setInviteModalOpen(true)}>초대하기</Button>
           </div>
         )}

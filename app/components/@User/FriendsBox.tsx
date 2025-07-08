@@ -2,7 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useUserStore } from "@/app/store/userStore";
 import axios from "axios";
@@ -11,17 +15,23 @@ function FriendCard({
   name,
   code,
   type,
+  onAccept,
+  onRefuse,
 }: {
   name: string;
   code: string;
-  type: "friend" | "sent" | "received";
+  type: "friend" | "sent" | "received" | "invite";
+  onAccept?: () => void;
+  onRefuse?: () => void;
 }) {
   const bgColor =
     type === "friend"
       ? "bg-blue-100 text-blue-900"
       : type === "sent"
-        ? "bg-purple-100 text-purple-900"
-        : "bg-green-100 text-green-900";
+      ? "bg-purple-100 text-purple-900"
+      : type === "received"
+      ? "bg-green-100 text-green-900"
+      : "bg-yellow-100 text-yellow-900";
 
   return (
     <div
@@ -31,6 +41,16 @@ function FriendCard({
       <div className="text-sm">
         <p>ID: {code}</p>
       </div>
+      {type === "invite" && (
+        <div className="flex gap-2">
+          <Button onClick={onAccept} className="bg-green-500 hover:bg-green-600 text-white">
+            수락
+          </Button>
+          <Button onClick={onRefuse} className="bg-red-500 hover:bg-red-600 text-white">
+            거절
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
@@ -39,20 +59,9 @@ function UserFriendCard() {
   const [friends, setFriends] = useState<any[]>([]);
   const [sentRequests, setSentRequests] = useState<any[]>([]);
   const [receivedRequests, setReceivedRequests] = useState<any[]>([]);
+  const [inviteList, setInviteList] = useState<any[]>([]);
   const [newCode, setNewCode] = useState("");
   const { user } = useUserStore();
-
-  const postInitialFriendRequest = async () => {
-    try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`,
-        {},
-        { withCredentials: true },
-      );
-    } catch (err) {
-      console.error("초기 친구 요청 실패:", err);
-    }
-  };
 
   const fetchFriends = async () => {
     try {
@@ -107,6 +116,23 @@ function UserFriendCard() {
     }
   };
 
+  const fetchInvites = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`,
+        {
+          withCredentials: true,
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+          },
+        },
+      );
+      setInviteList(res.data || []);
+    } catch (err) {
+      console.error("초대 목록 조회 실패:", err);
+    }
+  };
+
   const handleSendRequest = async () => {
     if (!newCode) return;
     try {
@@ -125,11 +151,45 @@ function UserFriendCard() {
     }
   };
 
+  const handleAcceptInvite = async (groupNumber: number) => {
+    try {
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/accept`,
+        { groupNumber },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      await fetchInvites();
+    } catch (err) {
+      console.error("초대 수락 실패:", err);
+    }
+  };
+
+  const handleRefuseInvite = async (groupNumber: number) => {
+    try {
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/refuse`,
+        {
+          data: { groupNumber },
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+      await fetchInvites();
+    } catch (err) {
+      console.error("초대 거절 실패:", err);
+    }
+  };
+
   useEffect(() => {
-    postInitialFriendRequest();
-    fetchFriends();
-    fetchSentRequests();
-    fetchReceivedRequests();
+    (async () => {
+      await fetchFriends();
+      await fetchSentRequests();
+      await fetchReceivedRequests();
+      await fetchInvites();
+    })();
   }, []);
 
   return (
@@ -179,6 +239,22 @@ function UserFriendCard() {
               name={f.senderName}
               code={f.senderUserCode}
               type="received"
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="text-2xl font-semibold mb-2">단체 팀 초대 목록</p>
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+          {inviteList.map((invite, i) => (
+            <FriendCard
+              key={i}
+              name={invite.receiver}
+              code={`그룹 ${invite.groupNumber}`}
+              type="invite"
+              onAccept={() => handleAcceptInvite(invite.groupNumber)}
+              onRefuse={() => handleRefuseInvite(invite.groupNumber)}
             />
           ))}
         </div>

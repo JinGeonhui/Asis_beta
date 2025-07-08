@@ -6,6 +6,7 @@ type UserInfo = {
   name: string;
   email: string;
   userCode: string;
+  groupNumberId: string;
 };
 
 type UserStore = {
