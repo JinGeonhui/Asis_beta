@@ -2,11 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useUserStore } from "@/app/store/userStore";
 import axios from "axios";
@@ -28,10 +24,10 @@ function FriendCard({
     type === "friend"
       ? "bg-blue-100 text-blue-900"
       : type === "sent"
-      ? "bg-purple-100 text-purple-900"
-      : type === "received"
-      ? "bg-green-100 text-green-900"
-      : "bg-yellow-100 text-yellow-900";
+        ? "bg-purple-100 text-purple-900"
+        : type === "received"
+          ? "bg-green-100 text-green-900"
+          : "bg-yellow-100 text-yellow-900";
 
   return (
     <div
@@ -43,10 +39,16 @@ function FriendCard({
       </div>
       {type === "invite" && (
         <div className="flex gap-2">
-          <Button onClick={onAccept} className="bg-green-500 hover:bg-green-600 text-white">
+          <Button
+            onClick={onAccept}
+            className="bg-green-500 hover:bg-green-600 text-white"
+          >
             수락
           </Button>
-          <Button onClick={onRefuse} className="bg-red-500 hover:bg-red-600 text-white">
+          <Button
+            onClick={onRefuse}
+            className="bg-red-500 hover:bg-red-600 text-white"
+          >
             거절
           </Button>
         </div>

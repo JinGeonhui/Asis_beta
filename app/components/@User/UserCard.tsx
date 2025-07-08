@@ -34,11 +34,15 @@ function UserCard() {
               "ngrok-skip-browser-warning": "69420",
             },
             withCredentials: true,
-          }
+          },
         );
 
         const { part, every } = res.data;
-        if (typeof part === "number" && typeof every === "number" && every !== 0) {
+        if (
+          typeof part === "number" &&
+          typeof every === "number" &&
+          every !== 0
+        ) {
           const rate = Math.round((part / every) * 100);
           setTodoRate(rate);
         } else {
@@ -63,7 +67,9 @@ function UserCard() {
         <div className="flex flex-col gap-1.5">
           <p className="font-bold text-2xl">{user.name}</p>
           <p className="font-medium text-sm text-gray-400">{user.email}</p>
-          <p className="font-medium text-sm text-gray-400">ID: {user.userCode}</p>
+          <p className="font-medium text-sm text-gray-400">
+            ID: {user.userCode}
+          </p>
           <p className="font-regular text-sm text-[#1570EF]">프로필 공개</p>
         </div>
 

@@ -42,7 +42,15 @@ function formatDate(date: Date) {
 }
 
 function getDayName(date: Date) {
-  const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+  const days = [
+    "일요일",
+    "월요일",
+    "화요일",
+    "수요일",
+    "목요일",
+    "금요일",
+    "토요일",
+  ];
   return days[date.getDay()];
 }
 
@@ -63,7 +71,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [ownerName, setOwnerName] = useState<string>("");
-  const [optimisticMap, setOptimisticMap] = useState<Record<number, OptimisticState>>({});
+  const [optimisticMap, setOptimisticMap] = useState<
+    Record<number, OptimisticState>
+  >({});
   const [isReadOnly, setIsReadOnly] = useState(false);
   const router = useRouter();
   const { user } = useUserStore();
@@ -84,7 +94,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           {
             headers: { "ngrok-skip-browser-warning": "69420" },
             withCredentials: true,
-          }
+          },
         );
         const ownerCode = response.data.ownerCode;
         setOwnerName(response.data.ownerName);
@@ -115,7 +125,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           headers: { "ngrok-skip-browser-warning": "69420" },
           params: { date: formattedDate },
           withCredentials: true,
-        }
+        },
       );
       setOwnerName("");
       const tdlArr = (response.data.tdl || []).map((item: any) => ({
@@ -191,7 +201,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
     } catch (err) {
       setOptimisticMap((prev) => {
@@ -208,12 +218,15 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     return opt ? { ...tdl, completed: opt.completed, part: opt.part } : tdl;
   });
 
-  const grouped = visibleList.reduce((acc, tdl) => {
-    const cat = tdl.category || "기타";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(tdl);
-    return acc;
-  }, {} as Record<string, TodoList[]>);
+  const grouped = visibleList.reduce(
+    (acc, tdl) => {
+      const cat = tdl.category || "기타";
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(tdl);
+      return acc;
+    },
+    {} as Record<string, TodoList[]>,
+  );
 
   const handleInvite = async (userCodes: string[]) => {
     if (!groupNumber) {
@@ -233,7 +246,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
       alert("초대가 완료되었습니다!");
     } catch (error) {
@@ -312,7 +325,9 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
           <div className="w-[94%] flex flex-row justify-end absolute bottom-4 gap-[1rem]">
             <Button onClick={() => setInsertModalOpen(true)}>추가하기</Button>
             <Button onClick={() => router.push("/Group/Edit")}>수정하기</Button>
-            <Button onClick={() => router.push("/Group/Delete")}>삭제하기</Button>
+            <Button onClick={() => router.push("/Group/Delete")}>
+              삭제하기
+            </Button>
             <Button onClick={() => setInviteModalOpen(true)}>초대하기</Button>
           </div>
         )}

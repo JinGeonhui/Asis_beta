@@ -51,7 +51,7 @@ export function InviteModal({
             "ngrok-skip-browser-warning": "69420",
           },
           withCredentials: true,
-        }
+        },
       );
 
       const users = Array.isArray(response.data) ? response.data : [];
@@ -65,7 +65,9 @@ export function InviteModal({
 
   // 친구 선택
   const handleSelectFriend = (friendCode: string) => {
-    setFriendCodes((prev) => (prev.includes(friendCode) ? prev : [...prev, friendCode]));
+    setFriendCodes((prev) =>
+      prev.includes(friendCode) ? prev : [...prev, friendCode],
+    );
   };
 
   // 초대하기
@@ -88,7 +90,7 @@ export function InviteModal({
             "ngrok-skip-browser-warning": "69420",
           },
           withCredentials: true,
-        }
+        },
       );
       alert("초대가 완료되었습니다.");
       onInvite(friendCodes);
