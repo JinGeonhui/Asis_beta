@@ -83,7 +83,7 @@ export function InviteModal({ onClose }: InviteModalProps) {
             "Content-Type": "application/json",
           },
           withCredentials: true,
-        }
+        },
       );
       alert("초대가 완료되었습니다!");
       onClose();
