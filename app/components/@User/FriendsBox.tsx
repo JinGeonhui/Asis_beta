@@ -68,7 +68,7 @@ function UserFriendCard() {
   const fetchFriends = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/friends`,
         {
           withCredentials: true,
           headers: {
@@ -85,7 +85,7 @@ function UserFriendCard() {
   const fetchSentRequests = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requested/${user?.userCode}`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/friends/requested/${user?.userCode}`,
         {
           withCredentials: true,
           headers: {
@@ -103,7 +103,7 @@ function UserFriendCard() {
   const fetchReceivedRequests = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/friends/requests`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/friends/requests`,
         {
           withCredentials: true,
           headers: {
@@ -121,7 +121,7 @@ function UserFriendCard() {
   const fetchInvites = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/invite`,
         {
           withCredentials: true,
           headers: {
@@ -156,7 +156,7 @@ function UserFriendCard() {
   const handleAcceptInvite = async (groupNumber: number) => {
     try {
       await axios.put(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/accept`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/accept`,
         { groupNumber },
         {
           withCredentials: true,
@@ -172,7 +172,7 @@ function UserFriendCard() {
   const handleRefuseInvite = async (groupNumber: number) => {
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/refuse`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/refuse`,
         {
           data: { groupNumber },
           withCredentials: true,

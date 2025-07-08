@@ -28,7 +28,7 @@ function UserCard() {
 
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private/month`,
+          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/calendar/private/month`,
           {
             headers: {
               "ngrok-skip-browser-warning": "69420",

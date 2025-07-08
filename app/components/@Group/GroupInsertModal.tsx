@@ -36,7 +36,7 @@ export function GroupInsertModal({ onClose, text }: Modalprops) {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/insert`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/insert`,
         dto,
         {
           headers: {

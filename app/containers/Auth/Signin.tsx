@@ -35,7 +35,7 @@ function Signin() {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/auth/login`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/auth/login`,
         dto,
         {
           headers: {
@@ -61,7 +61,7 @@ function Signin() {
   const onSilentRefresh = async (access_token: string) => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/auth/refresh`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/auth/refresh`,
         { access_token: access_token },
         {
           headers: {
@@ -80,15 +80,15 @@ function Signin() {
   };
 
   const handleSocialGoogle = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/oauth2/authorize/google`;
+    window.location.href = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/oauth2/authorize/google`;
   };
 
   const handleSocialNaver = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/oauth2/authorize/naver`;
+    window.location.href = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/oauth2/authorize/naver`;
   };
 
   const handleSocialKakao = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/oauth2/authorize/kakao`;
+    window.location.href = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/oauth2/authorize/kakao`;
   };
 
   const GoSignup = () => {

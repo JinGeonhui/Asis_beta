@@ -34,7 +34,7 @@ export function InviteModal({ onClose }: InviteModalProps) {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/find`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/find`,
         { friend: friendName.trim() },
         {
           headers: {
@@ -72,7 +72,7 @@ export function InviteModal({ onClose }: InviteModalProps) {
     }
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/invite`,
         {
           groupID: groupNumber,
           receivers: friendCodes,

@@ -42,7 +42,7 @@ export function PersonalEditMoadl({ onClose, text }: ModalProps) {
 
     try {
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/modify`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/toDoList/modify`,
         dto,
         {
           headers: {

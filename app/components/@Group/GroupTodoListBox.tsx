@@ -90,7 +90,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     if (isToday(selectedDate)) {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/get`,
+          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/get`,
           {
             headers: { "ngrok-skip-browser-warning": "69420" },
             withCredentials: true,
@@ -120,7 +120,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     try {
       const formattedDate = formatDate(selectedDate);
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/group`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/calendar/group`,
         {
           headers: { "ngrok-skip-browser-warning": "69420" },
           params: { date: formattedDate },
@@ -149,7 +149,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     fetchTodolist();
   }, [selectedDate, groupNumber]);
 
-  const baseSSEUrl = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/sse/group`;
+  const baseSSEUrl = `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/sse/group`;
 
   useSSE({
     url: `${baseSSEUrl}?groupNum=${groupNumber}`,
@@ -189,7 +189,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
 
     try {
       await axios.put(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/success`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/success`,
         {
           title: item.title,
           completed: !item.completed,
@@ -235,7 +235,7 @@ function GroupTodoListBox({ selectedDate, onSelectDate, userCount }: Props) {
     }
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/invite`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/invite`,
         {
           groupID: groupNumber,
           receivers: userCodes,

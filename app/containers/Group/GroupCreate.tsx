@@ -29,7 +29,7 @@ export default function GroupCreate() {
       }
 
       const src = new EventSource(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/sse/group-invite?userCode=${user.userCode}`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/sse/group-invite?userCode=${user.userCode}`,
         { withCredentials: true },
       );
 
@@ -66,7 +66,7 @@ export default function GroupCreate() {
 
       try {
         await axios.post(
-          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/find`,
+          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/find`,
           dto,
           { withCredentials: true },
         );
@@ -105,7 +105,7 @@ export default function GroupCreate() {
     };
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/create`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/create`,
         payload,
         {
           headers: { "ngrok-skip-browser-warning": "69420" },

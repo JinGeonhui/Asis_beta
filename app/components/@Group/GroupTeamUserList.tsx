@@ -20,7 +20,7 @@ function GroupTeamUserList({ onUserCountChange }: GroupTeamUserListProps) {
     async function fetchUserList() {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/userlist`,
+          `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/userlist`,
           {
             headers: {
               "ngrok-skip-browser-warning": "69420",

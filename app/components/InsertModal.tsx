@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 
@@ -36,7 +36,7 @@ export function InsertModal({ onClose, text }: Modalprops) {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/insert`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/toDoList/insert`,
         dto,
         {
           headers: {

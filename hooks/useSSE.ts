@@ -1,5 +1,3 @@
-// ✅ 커스텀 훅 수정 (null 허용)
-// src/hooks/useSSE.ts
 import { useEffect, useRef } from "react";
 
 interface SSEOptions {

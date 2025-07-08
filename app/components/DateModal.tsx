@@ -28,7 +28,7 @@ export function DateMoadl({ onClose, text }: Modalprops) {
     };
 
     const response = await axios.put(
-      `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/modify`,
+      `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/modify`,
       dto,
       {
         headers: {

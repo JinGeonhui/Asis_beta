@@ -62,7 +62,7 @@ export function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
       try {
         if (isToday(selectedDate)) {
           const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/get`,
+            `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/toDoList/get`,
             {
               headers: {
                 "ngrok-skip-browser-warning": "69420",
@@ -74,7 +74,7 @@ export function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
         } else {
           const formatted = formatDate(selectedDate);
           const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/calendar/private`,
+            `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/calendar/private`,
             {
               headers: {
                 "ngrok-skip-browser-warning": "69420",
@@ -120,7 +120,7 @@ export function PersonalTodoListBox({ selectedDate, onSelectDate }: Props) {
 
     try {
       await axios.put(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/success`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/toDoList/success`,
         {
           title: target.title,
           completed: !target.completed,
