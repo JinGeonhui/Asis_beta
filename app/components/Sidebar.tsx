@@ -59,7 +59,7 @@ export function SideBar() {
     handleMenuClick("users");
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/group/toDoList/isMember`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/group/toDoList/isMember`,
         {
           headers: {
             "ngrok-skip-browser-warning": "69420",
