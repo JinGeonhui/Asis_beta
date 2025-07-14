@@ -134,7 +134,7 @@ export function PersonalDeleteMoadl({ onClose, text }: ModalProps) {
 
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/toDoList/delete`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_BASE_URL}/api/toDoList/delete`,
         {
           data: dto,
           headers: {
